@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
+import AddContinent from "../pages/AddContinent";
+import AddTouristsSpot from "../pages/AddTouristsSpot";
+import AddCounty from "../pages/AddCounty";
 
 
 export const router = createBrowserRouter([
@@ -19,7 +22,17 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/add_tourists_spot",
-                element: <h1>add_tourists_spot</h1>
+                loader: () => fetch('http://localhost:5000/continents'),
+                element: <AddTouristsSpot />
+            },
+            {
+                path: "/add_continent",
+                element: <AddContinent />
+            },
+            {
+                path: "/add_country",
+                loader: () => fetch('http://localhost:5000/continents'),
+                element: <AddCounty />
             },
             {
                 path: "/my_list",
