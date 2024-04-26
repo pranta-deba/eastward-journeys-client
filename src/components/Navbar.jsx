@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { MdLightMode, MdOutlineLightMode } from "react-icons/md";
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [themeController, setThemeController] = useState(false);
+    const [theme, setTheme] = useState("light");
+
+    document.querySelector('html').setAttribute('data-theme', theme);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -18,6 +25,10 @@ const Navbar = () => {
             setScrolled(false);
         }
     };
+    const handleThemeController = () => {
+        setThemeController(!themeController);
+        !themeController ? setTheme('dark') : setTheme('light');
+    }
     const navLinks = <>
         <li><NavLink to={"/"} className={({ isActive, isPending }) =>
             isActive
@@ -82,21 +93,43 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-2">
+                <a onClick={handleThemeController} className="text-3xl cursor-pointer">
+                    {!themeController ? <MdLightMode /> : <MdOutlineLightMode />}
+                </a>
+                <div className="dropdown dropdown-end hidden">
+                    <div tabIndex={0} role="button" className="m-1">
+                        <div className="avatar online" data-tooltip-id="my-tooltip"
+                            data-tooltip-content="Hello world!"
+                            data-tooltip-place="left">
+                            <div className="w-10 rounded-full">
+                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a>Profile</a></li>
+                        <li><a>Setting</a></li>
+                        <li><a>Logout</a></li>
+                    </ul>
+                </div>
+
+
                 <NavLink to={"/signIn"} className={({ isActive, isPending }) =>
                     isActive
-                        ? "btn rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
+                        ? "hidden md:flex btn rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
                         : isPending
                             ? "pending"
-                            : "btn rounded border-b-2 border-transparent focus:bg-green-800"
+                            : "hidden md:flex btn rounded border-b-2 border-transparent focus:bg-green-800"
                 }>Sign in</NavLink>
                 <NavLink to={"/signUp"} className={({ isActive, isPending }) =>
                     isActive
                         ? "btn px-9 rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
                         : isPending
                             ? "pending"
-                            : "btn px-9 bg-green-800 text-white hover:text-white hover:bg-green-900 rounded border-b-2 border-transparent focus:bg-green-800"
+                            : "btn px-9 bg-green-800 text-white hover:text-white hover:bg-green-400 rounded border-b-2 border-transparent focus:bg-green-800"
                 } >Try Free</NavLink>
             </div>
+            <Tooltip id="my-tooltip" className="relative z-20" />
         </div>
     );
 };
