@@ -75,7 +75,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className={`navbar poppins ${scrolled ? 'bg-white fixed top-0 w-full shadow-xl' : 'bg-white'}`}>
+        <div className={`navbar poppins ${scrolled ? 'bg-white fixed top-0 w-full shadow-xl z-50' : 'bg-white'}`}>
             <div className="navbar-start">
                 <div className="dropdown gap-0 p-0">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

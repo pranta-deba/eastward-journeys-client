@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 const Banner = () => {
 
     return (
-        <Carousel className="raleway w-full h-screen bg-cover">
+        <Carousel className="raleway">
             <div className="max-h-screen relative bg-white">
                 <img src="/banner.jpg" className="opacity-70" />
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
