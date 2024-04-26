@@ -27,6 +27,7 @@ const AddTouristsSpot = () => {
             location: e.target.location.value,
             averageCost: e.target.averageCost.value,
             description: e.target.description.value,
+            travelTime: e.target.travelTime.value,
             seasonality: e.target.seasonality.value,
             userEmail: "",
             userName: "",
