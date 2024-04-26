@@ -28,44 +28,43 @@ const AddTouristsSpot = () => {
             averageCost: e.target.averageCost.value,
             description: e.target.description.value,
             seasonality: e.target.seasonality.value,
-            userEmail: "someUser@gmail.com",
-            userName: "someUser",
+            userEmail: "",
+            userName: "",
         }
-        
-        // fetch('http://localhost:5000/add_country', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(doc)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.insertedId) {
-        //             toast.success("Continent added successfully", {
-        //                 position: "top-center",
-        //                 autoClose: 5000,
-        //                 hideProgressBar: false,
-        //                 closeOnClick: true,
-        //                 pauseOnHover: true,
-        //                 draggable: true,
-        //                 progress: undefined,
-        //                 transition: Flip
-        //             });
-        //             e.target.reset();
-        //         } else {
-        //             toast.error("Country not added, please try again!", {
-        //                 position: "top-center",
-        //                 autoClose: 5000,
-        //                 hideProgressBar: false,
-        //                 closeOnClick: true,
-        //                 pauseOnHover: true,
-        //                 draggable: true,
-        //                 progress: undefined,
-        //                 transition: Flip
-        //             });
-        //         }
-        //     })
+        fetch('http://localhost:5000/add_places', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(doc)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.insertedId) {
+                    toast.success("Place added successfully", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Flip
+                    });
+                    e.target.reset();
+                } else {
+                    toast.error("Place not added, please try again!", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Flip
+                    });
+                }
+            })
     }
     const handleCountiesId = (e) => {
         setContinentId(e.target.value);
@@ -78,7 +77,7 @@ const AddTouristsSpot = () => {
                 <form onSubmit={handleCreateTouristSpot} className="grid grid-cols-2 gap-3">
                     <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" />
                     <select onChange={handleCountiesId} name="continentId" className="input border-2 border-green-800">
-                        <option value={-1}>Select Continent</option>
+                        <option value="">Select Continent</option>
                         {
                             continents.map(category => {
                                 return <option value={category._id} key={category._id}>{category.continentName}</option>
@@ -96,7 +95,8 @@ const AddTouristsSpot = () => {
                     <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" />
                     <textarea className="input border-2 border-green-800" name="description" placeholder="Description"></textarea>
                     <select name="seasonality" className="input border-2 border-green-800">
-                        <option value={-1}>Select Seasonality</option>
+                        <option value="">Select Seasonality</option>
+                        <option value="All Year">All Year</option>
                         <option value="Spring">Spring</option>
                         <option value="Summer">Summer</option>
                         <option value="Fall">Fall</option>

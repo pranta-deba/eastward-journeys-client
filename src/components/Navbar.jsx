@@ -82,13 +82,13 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-2">
-                <NavLink to={"/signIn"} className={`hidden md:flex btn py-0 rounded ${({ isActive, isPending }) =>
+                <NavLink to={"/signIn"} className={({ isActive, isPending }) =>
                     isActive
-                        ? "border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
+                        ? "btn rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
                         : isPending
                             ? "pending"
-                            : "border-b-2 border-transparent focus:bg-green-800"
-                }`}>Sign in</NavLink>
+                            : "btn rounded border-b-2 border-transparent focus:bg-green-800"
+                }>Sign in</NavLink>
                 <NavLink to={"/signUp"} className={({ isActive, isPending }) =>
                     isActive
                         ? "btn px-9 rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"

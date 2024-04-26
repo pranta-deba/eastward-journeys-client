@@ -23,7 +23,7 @@ const AddCounty = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.insertedId) {
-                    toast.success("Continent added successfully", {
+                    toast.success("Country added successfully", {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
