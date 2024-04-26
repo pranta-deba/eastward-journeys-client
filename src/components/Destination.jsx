@@ -45,7 +45,7 @@ const Destination = () => {
                     {
                         allCountry.map(country => (
                             <SwiperSlide key={country._id}>
-                                <Link className='relative group'>
+                                <Link to={`/places/${country?.countryName}`} className='relative group'>
                                     <img src={country.photoURL} alt=""/>
                                     <p className='absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-800 w-full text-center text-white capitalize py-2 group-hover:bg-green-500 group-hover:-bottom-5 transition-all'>{country?.countryName}</p>
                                 </Link>

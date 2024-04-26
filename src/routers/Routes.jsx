@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import AddContinent from "../pages/AddContinent";
 import AddTouristsSpot from "../pages/AddTouristsSpot";
 import AddCounty from "../pages/AddCounty";
+import DetailsPage from "../pages/DetailsPage";
+import CountryPlace from "../pages/CountryPlace";
 
 
 export const router = createBrowserRouter([
@@ -33,6 +35,16 @@ export const router = createBrowserRouter([
                 path: "/add_country",
                 loader: () => fetch('http://localhost:5000/continents'),
                 element: <AddCounty />
+            },
+            {
+                path: "/details/:id",
+                loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
+                element: <DetailsPage />
+            },
+            {
+                path: "/places/:country",
+                loader: ({ params }) => fetch(`http://localhost:5000/filter_places/${params.country}`),
+                element: <CountryPlace />
             },
             {
                 path: "/my_list",

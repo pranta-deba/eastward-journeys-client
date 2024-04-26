@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const PlaceCard = ({ place }) => {
-    const { touristsSpotName, photoURL, location, averageCost } = place || {};
+    const {_id:id, touristsSpotName, photoURL, location, averageCost } = place || {};
     return (
-        <Link className="relative flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
+        <Link to={`/details/${id}`} className="relative flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
             <div>
                 <figure className="object-cover w-full">
                     <img src={photoURL} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500 hover:scale-105 transition-all" />

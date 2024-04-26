@@ -5,3 +5,4 @@
 - [](https://react-tooltip.com/docs/getting-started)
 - [](https://react-responsive-carousel.js.or)
 - [](https://swiperjs.com/get-started)
+- [](https://www.npmjs.com/package/lottie-react)
