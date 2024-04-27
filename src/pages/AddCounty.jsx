@@ -1,6 +1,6 @@
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link, useLoaderData } from "react-router-dom";
-import { Flip, ToastContainer, toast } from "react-toastify";
+import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddCounty = () => {
@@ -13,6 +13,22 @@ const AddCounty = () => {
             continentId: e.target.continentId.value,
             photoURL: e.target.photoURL.value,
             description: e.target.description.value
+        }
+        if (doc.countryName === "" ||
+            doc.continentId === "" ||
+            doc.description === "" ||
+            doc.photoURL === "") {
+            toast.error("Input field required.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            return;
         }
         fetch('http://localhost:5000/add_country', {
             method: 'POST',
@@ -62,11 +78,11 @@ const AddCounty = () => {
                 <form onSubmit={handleCreateCountry} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Country Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="countryName" placeholder="Country Name" />
+                        <input className="input border-2 border-green-800" type="text" name="countryName" placeholder="Country Name" required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Continent</label>
-                        <select name="continentId" className="input border-2 border-green-800">
+                        <select name="continentId" className="input border-2 border-green-800" required>
                             <option value={-1}>Select</option>
                             {
                                 continents.map(category => {
@@ -77,11 +93,11 @@ const AddCounty = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="col-span-2 input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" />
+                        <input className="col-span-2 input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
-                        <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description"></textarea>
+                        <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description" required></textarea>
                     </div>
                     <div className="space-x-2">
                         <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Add" />

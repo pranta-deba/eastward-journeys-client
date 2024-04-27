@@ -11,6 +11,8 @@ import EditPlace from "../pages/EditPlace";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import MyList from "../pages/MyList";
+import Blogs from "../pages/Blogs";
+import Private from "./Private";
 
 
 export const router = createBrowserRouter([
@@ -30,16 +32,16 @@ export const router = createBrowserRouter([
             {
                 path: "/add_tourists_spot",
                 loader: () => fetch('http://localhost:5000/continents'),
-                element: <AddTouristsSpot />
+                element: <Private><AddTouristsSpot /></Private>
             },
             {
                 path: "/add_continent",
-                element: <AddContinent />
+                element: <Private><AddContinent /></Private>
             },
             {
                 path: "/add_country",
                 loader: () => fetch('http://localhost:5000/continents'),
-                element: <AddCounty />
+                element: <Private><AddCounty /></Private>
             },
             {
                 path: "/details/:id",
@@ -54,15 +56,16 @@ export const router = createBrowserRouter([
             {
                 path: "/edit/:id",
                 loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
-                element: <EditPlace/>
+                element: <Private><EditPlace/></Private>
             },
             {
                 path: "/my_list",
-                element: <MyList/>
+                element: <Private><MyList/></Private>
             },
             {
                 path: "/blogs",
-                element: <h1>my_list</h1>
+                loader: ()=> fetch('/blogs.json'),
+                element: <Blogs/>
             },
             {
                 path: "/about",

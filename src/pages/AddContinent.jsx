@@ -1,6 +1,6 @@
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { Flip, ToastContainer, toast } from "react-toastify";
+import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddContinent = () => {
@@ -11,7 +11,21 @@ const AddContinent = () => {
             photoURL: e.target.photoURL.value,
             description: e.target.description.value
         }
-
+        if (doc.continentName === "" ||
+            doc.photoURL === "" ||
+            doc.description === "") {
+            toast.error("Input field required.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            return;
+        }
         fetch('http://localhost:5000/add_continent', {
             method: 'POST',
             headers: {
@@ -60,15 +74,15 @@ const AddContinent = () => {
                 <form onSubmit={handleCreateContinent} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Continent Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="continentName" placeholder="Continent Name" />
+                        <input className="input border-2 border-green-800" type="text" name="continentName" placeholder="Continent Name" required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" />
+                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" required/>
                     </div>
                     <div className="md:col-span-3 flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
-                        <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description"></textarea>
+                        <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description" required></textarea>
                     </div>
                     <div className="space-x-2">
                         <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Add" />

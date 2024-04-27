@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import UseAllContinents from "../hooks/UseAllContinents";
 import { useEffect, useState } from "react";
-import { Flip, ToastContainer, toast } from "react-toastify";
+import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import UseAllProvider from "../hooks/UseAllProvider";
 
@@ -37,6 +37,27 @@ const EditPlace = () => {
             userEmail: user.email || null,
             userName: user.displayName || null,
         }
+        if (doc.touristsSpotName === "" ||
+            doc.photoURL === "" ||
+            doc.averageCost === "" ||
+            doc.description === "" ||
+            doc.countryName === "" ||
+            doc.continentId === "" ||
+            doc.travelTime === "" ||
+            doc.totalVisitorsPerYear === "" ||
+            doc.seasonality === "") {
+            toast.error("Input field required.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            return;
+        }
         fetch(`http://localhost:5000/places/${id}`, {
             method: 'PUT',
             headers: {
@@ -58,15 +79,15 @@ const EditPlace = () => {
                         transition: Flip
                     });
                 } else {
-                    toast.error("please try again!", {
-                        position: "top-center",
+                    toast.error("No fields are changes.! ", {
+                        position: "top-left",
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        transition: Flip
+                        transition: Bounce
                     });
                 }
             });
@@ -83,11 +104,11 @@ const EditPlace = () => {
                 <form onSubmit={handleUpdateTouristSpot} className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Tourists Spot Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" defaultValue={touristsSpotName} />
+                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" defaultValue={touristsSpotName} required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Continent</label>
-                        <select onChange={handleCountiesId} name="continentId" className="input border-2 border-green-800">
+                        <select onChange={handleCountiesId} name="continentId" className="input border-2 border-green-800" required>
                             <option value="">Select</option>
                             {
                                 allContinents.map(category => {
@@ -98,7 +119,7 @@ const EditPlace = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Country</label>
-                        <select name="countryName" className="input border-2 border-green-800">
+                        <select name="countryName" className="input border-2 border-green-800" required>
                             {
                                 country.map(con => <option value={con.countryName} key={con._id}>{con.countryName}</option>)
                             }
@@ -106,23 +127,23 @@ const EditPlace = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" defaultValue={photoURL} />
+                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" defaultValue={photoURL} required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Location</label>
-                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" defaultValue={location} />
+                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" defaultValue={location} required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Average Cost</label>
-                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" defaultValue={averageCost} />
+                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" defaultValue={averageCost} required/>
                     </div>
                     <div className="md:col-span-3 flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
-                        <textarea className="input border-2 border-green-800" name="description" placeholder="Description" defaultValue={description}></textarea>
+                        <textarea className="input border-2 border-green-800" name="description" placeholder="Description" defaultValue={description} required></textarea>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Seasonality</label>
-                        <select name="seasonality" className="input border-2 border-green-800">
+                        <select name="seasonality" className="input border-2 border-green-800" required>
                             <option value="All Year">All Year</option>
                             <option value="Spring">Spring</option>
                             <option value="Summer" >Summer</option>
@@ -132,11 +153,11 @@ const EditPlace = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Travel Time</label>
-                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" defaultValue={travelTime} />
+                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" defaultValue={travelTime} required/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Total Visitors Per Year</label>
-                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" defaultValue={totalVisitorsPerYear} />
+                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" defaultValue={totalVisitorsPerYear} required/>
                     </div>
                     <div className="space-x-2">
                         <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Update" />

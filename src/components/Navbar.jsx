@@ -54,20 +54,22 @@ const Navbar = () => {
                     ? "pending"
                     : "rounded border-b-2 border-transparent focus:bg-green-800"
         }>Tourists Spot</NavLink></li>
-        <li><NavLink to={"/add_tourists_spot"} className={({ isActive, isPending }) =>
+
+        {user && <li><NavLink to={"/add_tourists_spot"} className={({ isActive, isPending }) =>
             isActive
                 ? "rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
                 : isPending
                     ? "pending"
                     : "rounded border-b-2 border-transparent focus:bg-green-800"
-        }>Add Tourists Spot</NavLink></li>
-        <li><NavLink to={"/my_list"} className={({ isActive, isPending }) =>
+        }>Add Tourists Spot</NavLink></li>}
+
+        {user && <li><NavLink to={"/my_list"} className={({ isActive, isPending }) =>
             isActive
                 ? "rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
                 : isPending
                     ? "pending"
                     : "rounded border-b-2 border-transparent focus:bg-green-800"
-        }>My List</NavLink></li>
+        }>My List</NavLink></li>}
         <li><NavLink to={"/blogs"} className={({ isActive, isPending }) =>
             isActive
                 ? "rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white"
