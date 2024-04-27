@@ -3,6 +3,7 @@ import './App.css'
 import Navbar from './components/Navbar';
 import UseAllProvider from './hooks/UseAllProvider';
 import { CirclesWithBar } from 'react-loader-spinner';
+import Footer from './components/Footer';
 
 function App() {
   const { userLoader } = UseAllProvider();
@@ -33,6 +34,7 @@ function App() {
         <Outlet />
       </main>
       <footer>
+        <Footer />
       </footer>
     </>
   )

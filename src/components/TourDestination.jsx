@@ -1,8 +1,27 @@
+import { CirclesWithBar } from "react-loader-spinner";
 import UseAllPlaces from "../hooks/UseAllPlaces";
 import PlaceCard from "./PlaceCard";
 
 const TourDestination = () => {
-    const { allPlaces } = UseAllPlaces();
+    const { allPlaces ,allPlacesLoading} = UseAllPlaces();
+    if (allPlacesLoading) {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <CirclesWithBar
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    outerCircleColor="#4fa94d"
+                    innerCircleColor="#4fa94d"
+                    barColor="#4fa94d"
+                    ariaLabel="circles-with-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        )
+    }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
             <div className='text-center my-12'>

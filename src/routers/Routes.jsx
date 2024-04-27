@@ -13,6 +13,7 @@ import SignUp from "../pages/SignUp";
 import MyList from "../pages/MyList";
 import Blogs from "../pages/Blogs";
 import Private from "./Private";
+import About from "../pages/About";
 
 
 export const router = createBrowserRouter([
@@ -69,7 +70,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/about",
-                element: <h1>about</h1>
+                loader: ()=> fetch('/review.json'),
+                element: <About/>
             },
             {
                 path: "/signIn",

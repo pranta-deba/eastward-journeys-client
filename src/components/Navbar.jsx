@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdLightMode, MdOutlineLightMode } from "react-icons/md";
 import { Tooltip } from 'react-tooltip'
@@ -11,9 +11,8 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [themeController, setThemeController] = useState(false);
     const [theme, setTheme] = useState("light");
+    const { user, logOut, setThemeMail, themeMail } = UseAllProvider();
     document.querySelector('html').setAttribute('data-theme', theme);
-    const { user, logOut } = UseAllProvider();
-
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -30,9 +29,14 @@ const Navbar = () => {
     };
     const handleThemeController = () => {
         setThemeController(!themeController);
-        !themeController ? setTheme('dark') : setTheme('light');
+        if (!themeController) {
+            setTheme('synthwave')
+            setThemeMail('synthwave');
+        } else {
+            setTheme('light')
+            setThemeMail('light');
+        }
     }
-
     const HandleLogout = () => {
         logOut()
             .then(() => { })
@@ -87,7 +91,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className={`navbar poppins ${scrolled ? 'bg-white fixed top-0 w-full shadow-xl z-50' : 'bg-white'}`}>
+        <div className={`navbar poppins shadow-md ${scrolled ? themeMail === "synthwave" ? "bg-[#1A103D] text-white fixed top-0 w-full shadow-xl z-50" : "bg-white fixed top-0 w-full shadow-xl z-50" : themeMail === "synthwave" ? "bg-[#1A103D]" : "bg-white"}`}>
             <div className="navbar-start">
                 <div className="dropdown gap-0 p-0">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -97,7 +101,7 @@ const Navbar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="flex items-center text-xl">logo</a>
+                <Link t="/" className="flex items-center justify-center text-xl"><img src={themeMail === "synthwave" ? "/logo2.png" : "/logo.png"} alt="" className="w-[90px] md:w-[140px]" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-2 text-md font-medium">

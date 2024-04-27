@@ -7,10 +7,11 @@ import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import { CirclesWithBar } from "react-loader-spinner";
 
 const MyList = () => {
-    const { user, userLoader } = UseAllProvider();
-    const { allPlaces } = UseAllPlaces();
+    const { user } = UseAllProvider();
+    const { allPlaces, allPlacesLoading } = UseAllPlaces();
     const [places, setPlaces] = useState([]);
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const MyList = () => {
             const filterPlaces = allPlaces.filter(place => place.userEmail === user.email);
             setPlaces(filterPlaces);
         }
-    }, [user,allPlaces])
+    }, [user, allPlaces])
 
     const handleDeletePlace = (id) => {
         Swal.fire({
@@ -49,8 +50,23 @@ const MyList = () => {
         });
     }
 
-    if (userLoader) {
-        return "loading........."
+    if (allPlacesLoading) {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <CirclesWithBar
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    outerCircleColor="#4fa94d"
+                    innerCircleColor="#4fa94d"
+                    barColor="#4fa94d"
+                    ariaLabel="circles-with-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        )
     }
 
     if (user && places.length < 1) {

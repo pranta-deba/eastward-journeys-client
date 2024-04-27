@@ -19,6 +19,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.0",
+    "react-simple-typewriter": "^5.0.1",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.3",
     "sweetalert2": "^11.10.8",

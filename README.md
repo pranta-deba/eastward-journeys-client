@@ -8,3 +8,4 @@
 - [](https://www.npmjs.com/package/lottie-react)
 - [](https://sweetalert2.github.io/)
 - [](https://www.npmjs.com/package/react-loader-spinner)
+- [](https://www.npmjs.com/package/react-simple-typewriter)

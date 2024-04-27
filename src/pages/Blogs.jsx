@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CirclesWithBar } from "react-loader-spinner";
 import { useLoaderData } from "react-router-dom";
 
 const Blogs = () => {
@@ -10,35 +11,41 @@ const Blogs = () => {
         setData(blogs);
         setShowAll(true)
     }
+    if (!blogs) {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <CirclesWithBar
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    outerCircleColor="#4fa94d"
+                    innerCircleColor="#4fa94d"
+                    barColor="#4fa94d"
+                    ariaLabel="circles-with-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        )
+    }
     return (
-        <section>
-            <div className='p-12 text-center poppins'>
+        <section className="max-w-[1550px] w-[90%] mx-auto raleway">
+            <div className='p-8 text-center poppins'>
                 <h1 className='text-4xl font-bold'>Recent Blogs</h1>
             </div>
-            <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     data.map((blog, idx) => (
-                        <div key={idx} className="max-w-[1550px] w-[90%] mx-auto poppins shadow-lg">
-                            <div className="dark:bg-gray-100 dark:text-gray-800">
-                                <div className="container px-10 py-6 mx-auto rounded-lg shadow-sm dark:bg-gray-50">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm dark:text-gray-600">{blog.date}</span>
-                                        <a className="px-2 py-1 font-bold rounded dark:bg-violet-600 dark:text-gray-50">{blog.tag}</a>
-                                    </div>
-                                    <div className="mt-3">
-                                        <a  className="text-2xl font-bold hover:underline">{blog.title}</a>
-                                        <p className="mt-2">{blog.description}</p>
-                                    </div>
-                                    <div className="flex items-center justify-between mt-4">
-                                        <a className="hover:underline dark:text-violet-600 text-green-900">Read more</a>
-                                        <div>
-                                            <a rel="noopener noreferrer" href="#" className="flex items-center">
-                                                <img src={blog.author_image} alt="avatar" className="object-cover w-10 h-10 mx-4 rounded-full dark:bg-gray-500" />
-                                                <span className="hover:underline dark:text-gray-600">{blog.author_name}</span>
-                                            </a>
-                                        </div>
-                                    </div>
+                        <div key={idx} className="rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
+                            <img src={blog.img} alt="" className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500" />
+                            <div className="flex flex-col justify-between p-6 space-y-8">
+                                <div className="space-y-2">
+                                    <h2 className="text-xl font-semibold tracking-wide">{blog.title}</h2>
+                                    <p>{blog.date} by <span className="text-green-800">{blog.author_name}</span></p>
+                                    <p className="dark:text-gray-800">{blog.description.slice(0,80)}....</p>
                                 </div>
+                                <button type="button" className="flex items-center justify-center w-full font-semibold tracking-wide rounded-md dark:bg-violet-600 dark:text-gray-50 text-green-800">Read more</button>
                             </div>
                         </div>
                     ))

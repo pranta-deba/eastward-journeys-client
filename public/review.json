@@ -1,0 +1,45 @@
+[
+    {
+      "author_name": "Jessica Smith",
+      "author_image": "author_images/jessica_smith.jpg",
+      "date": "2024-04-27",
+      "rating": 5.7,
+      "review_description": "My trip to Petra was absolutely breathtaking! The ancient city carved into the rose-red cliffs left me speechless. The Treasury, the Monastery, every corner of Petra is filled with history and wonder. The experience was truly unforgettable."
+    },
+    {
+      "author_name": "Ahmed Hassan",
+      "author_image": "author_images/ahmed_hassan.jpg",
+      "date": "2024-04-25",
+      "rating": 4.1,
+      "review_description": "Visiting the Pyramids of Giza was a dream come true! Standing before these ancient wonders was awe-inspiring. However, the crowds were quite overwhelming, which slightly detracted from the experience. Nevertheless, it was an incredible journey through Egypt's fascinating history."
+    },
+    {
+      "author_name": "Sophie Johnson",
+      "author_image": "author_images/sophie_johnson.jpg",
+      "date": "2024-04-22",
+      "rating": 5.0,
+      "review_description": "My trip to Dubai exceeded all expectations! From the towering skyscrapers of Downtown Dubai to the cultural heritage of Old Dubai, the city offers a perfect blend of modernity and tradition. The desert safari was a highlight, and the hospitality of the locals made me feel right at home."
+    },
+    {
+      "author_name": "Mohammed Ali",
+      "author_image": "author_images/mohammed_ali.jpg",
+      "date": "2024-04-20",
+      "rating": 4.7,
+      "review_description": "Exploring the ancient city of Jerusalem was a deeply spiritual experience. Walking through the Old City's narrow streets, visiting the Western Wall, and witnessing the Dome of the Rock were moments I'll never forget. However, the crowds can be overwhelming, especially during peak tourist season."
+    },
+    {
+      "author_name": "Elena Petrova",
+      "author_image": "author_images/elena_petrova.jpg",
+      "date": "2024-04-18",
+      "rating": 5.0,
+      "review_description": "Visiting the Sultan Qaboos Grand Mosque in Muscat was a highlight of my trip to Oman. The sheer grandeur and beauty of the mosque are truly remarkable. The guided tour provided fascinating insights into Islamic architecture and Omani culture. A must-visit destination for anyone traveling to Oman!"
+    },
+    {
+      "author_name": "Youssef Mansour",
+      "author_image": "author_images/youssef_mansour.jpg",
+      "date": "2024-04-15",
+      "rating": 4.3,
+      "review_description": "Exploring the ancient ruins of Baalbek in Lebanon was a captivating journey through history. The colossal Roman temples are a testament to Lebanon's rich cultural heritage. However, the site could benefit from better preservation efforts to protect these invaluable historical treasures."
+    }
+  ]
+  

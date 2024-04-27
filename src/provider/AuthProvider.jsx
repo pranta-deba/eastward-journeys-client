@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [userLoader, setUserLoader] = useState(true);
     const [again, setAgain] = useState(false);
+    const [themeMail, setThemeMail] = useState('');
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -43,7 +44,7 @@ const AuthProvider = ({ children }) => {
     console.log(user, again);
 
     return (
-        <AuthContext.Provider value={{ createUser, googleSignIn, signIn, logOut, user, userLoader, again, setAgain }}>
+        <AuthContext.Provider value={{ createUser, googleSignIn, signIn, logOut, user, userLoader, again, setAgain, themeMail, setThemeMail }}>
             {children}
         </AuthContext.Provider>
     );

@@ -5,18 +5,36 @@ import UseAllPlaces from "../hooks/UseAllPlaces";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import { CirclesWithBar } from "react-loader-spinner";
 
 const TouristsPlace = () => {
-    const { allPlaces } = UseAllPlaces();
+    const { allPlaces ,allPlacesLoading} = UseAllPlaces();
     const { allCountry } = UseAllCountry();
     const [places, setPlaces] = useState([]);
     const [active, setActive] = useState('');
-
     useEffect(() => {
         setPlaces(allPlaces);
         setActive('all');
     }, [allPlaces])
 
+    if (allPlacesLoading) {
+        return (
+            <div className='h-screen flex justify-center items-center'>
+                <CirclesWithBar
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    outerCircleColor="#4fa94d"
+                    innerCircleColor="#4fa94d"
+                    barColor="#4fa94d"
+                    ariaLabel="circles-with-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        )
+    }
     const handleSort = country => {
         if (country === "all") {
             setPlaces(allPlaces);
@@ -60,7 +78,7 @@ const TouristsPlace = () => {
 
     return (
         <div>
-            <div className="max-w-[1550px] w-[90%] mx-auto mb-16 poppins">
+            <div className="max-w-[1550px] w-[90%] mx-auto mb-16 poppins  min-h-screen">
                 <div className='my-12 space-x-2 flex flex-wrap gap-2 raleway'>
                     <button className="text-2xl cursor-wait text-green-700"><BiCategory /></button>
                     <button onClick={() => handleSort("all")} className={`px-4 rounded border-2 border-green-800 py-1 ${active === "all" ? "bg-green-700 text-white" : ""}`}>All</button>
