@@ -3,12 +3,14 @@ import UseAllContinents from "../hooks/UseAllContinents";
 import { useEffect, useState } from "react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import UseAllProvider from "../hooks/UseAllProvider";
 
 const EditPlace = () => {
     const singlePlace = useLoaderData();
     const { allContinents } = UseAllContinents();
     const [continentId, setContinentId] = useState('');
     const [country, setCountry] = useState([]);
+    const { user } = UseAllProvider();
     const { _id: id, touristsSpotName, description, photoURL, location, travelTime, totalVisitorsPerYear, averageCost } = singlePlace || {};
 
     useEffect(() => {
@@ -32,8 +34,8 @@ const EditPlace = () => {
             travelTime: e.target.travelTime.value,
             totalVisitorsPerYear: e.target.totalVisitorsPerYear.value,
             seasonality: e.target.seasonality.value,
-            userEmail: "",
-            userName: "",
+            userEmail: user.email || null,
+            userName: user.displayName || null,
         }
         fetch(`http://localhost:5000/places/${id}`, {
             method: 'PUT',
