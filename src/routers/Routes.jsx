@@ -6,6 +6,10 @@ import AddTouristsSpot from "../pages/AddTouristsSpot";
 import AddCounty from "../pages/AddCounty";
 import DetailsPage from "../pages/DetailsPage";
 import CountryPlace from "../pages/CountryPlace";
+import TouristsPlace from "../pages/TouristsPlace";
+import EditPlace from "../pages/EditPlace";
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 
 export const router = createBrowserRouter([
@@ -20,7 +24,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/tourists_spot",
-                element: <h1>tourists_spot</h1>
+                element: <TouristsPlace />
             },
             {
                 path: "/add_tourists_spot",
@@ -47,6 +51,11 @@ export const router = createBrowserRouter([
                 element: <CountryPlace />
             },
             {
+                path: "/edit/:id",
+                loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
+                element: <EditPlace/>
+            },
+            {
                 path: "/my_list",
                 element: <h1>my_list</h1>
             },
@@ -60,11 +69,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/signIn",
-                element: <h1>signIn</h1>
+                element: <SignIn/>
             },
             {
                 path: "/signUp",
-                element: <h1>signUp</h1>
+                element: <SignUp/>
             },
         ]
     },

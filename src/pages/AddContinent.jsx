@@ -1,3 +1,4 @@
+import { IoAddCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,17 +48,32 @@ const AddContinent = () => {
             })
     }
     return (
-        <div>
-            <Link to={"/add_tourists_spot"} className="btn">add tourists spot</Link>
-            <Link to={"/add_country"} className="btn">add_country</Link>
-
-
-            <div className="flex justify-center items-center">
-                <form onSubmit={handleCreateContinent} className="grid grid-cols-2 gap-3">
-                    <input className="input border-2 border-green-800" type="text" name="continentName" placeholder="Continent Name" />
-                    <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" />
-                    <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description"></textarea>
-                    <input className="col-span-2 cursor-pointer btn input border-2 border-green-800" type="submit" value="Create Continent" />
+        <div className="max-w-[1550px] w-[90%] mx-auto raleway">
+            <div className='my-8 space-x-2 flex flex-wrap justify-center items-center gap-2 raleway'>
+                <button className="text-2xl cursor-wait text-green-700"><IoAddCircleSharp /></button>
+                <Link to={"/add_tourists_spot"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add Tourists spot</Link>
+                <Link to={"/add_continent"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize bg-green-800 text-white`}>add continent</Link>
+                <Link to={"/add_country"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add country</Link>
+            </div>
+            <hr />
+            <div className="md:w-[50%] mx-auto mt-8">
+                <form onSubmit={handleCreateContinent} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="flex flex-col">
+                        <label htmlFor="" className="text-sm font-light mb-2">Continent Name</label>
+                        <input className="input border-2 border-green-800" type="text" name="continentName" placeholder="Continent Name" />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
+                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" />
+                    </div>
+                    <div className="md:col-span-3 flex flex-col">
+                        <label htmlFor="" className="text-sm font-light mb-2">Description</label>
+                        <textarea className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description"></textarea>
+                    </div>
+                    <div className="space-x-2">
+                        <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Add" />
+                        <Link to={-1} className=" cursor-pointer btn ">Cancel</Link>
+                    </div>
                 </form>
             </div>
             <ToastContainer />

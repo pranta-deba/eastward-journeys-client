@@ -1,13 +1,15 @@
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaBookmark } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
+import { GiSemiClosedEye } from "react-icons/gi";
 import { ImLocation2 } from "react-icons/im";
+import { RiTimeZoneFill } from "react-icons/ri";
 import { SiSession } from "react-icons/si";
 import { useLoaderData } from "react-router-dom";
 
 const DetailsPage = () => {
     const singlePlace = useLoaderData();
-    const { touristsSpotName, countryName, description, photoURL, location, averageCost, seasonality } = singlePlace || {};
+    const { touristsSpotName, countryName, description, photoURL, location,travelTime,totalVisitorsPerYear, averageCost, seasonality } = singlePlace || {};
     return (
 
         <div>
@@ -47,7 +49,23 @@ const DetailsPage = () => {
                                     </div>
                                     <h4 className="text-lg font-medium leading-6 dark:text-gray-900">{seasonality}</h4>
                                 </div>
-                                <div className="flex gap-3">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <div className="flex items-center justify-center w-12 h-12 rounded-md dark:bg-violet-600 dark:text-gray-50">
+                                            <RiTimeZoneFill className="text-3xl text-green-800" />
+                                        </div>
+                                    </div>
+                                    <h4 className="text-lg font-medium leading-6 dark:text-gray-900">{travelTime} days</h4>
+                                </div>
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0">
+                                        <div className="flex items-center justify-center w-12 h-12 rounded-md dark:bg-violet-600 dark:text-gray-50">
+                                            <GiSemiClosedEye className="text-3xl text-green-800" />
+                                        </div>
+                                    </div>
+                                    <h4 className="text-lg font-medium leading-6 dark:text-gray-900">{totalVisitorsPerYear} view per year</h4>
+                                </div>
+                                <div className="flex gap-3 flex-wrap">
                                     <button className="btn px-9 rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white flex items-center gap-1"><FaBookmark className="text-2xl" />Bookmark</button>
                                     <button className="btn px-9 rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white flex items-center gap-1"><FiShare2 className="text-2xl" />Share</button>
 

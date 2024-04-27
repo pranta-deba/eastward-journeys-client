@@ -6,3 +6,4 @@
 - [](https://react-responsive-carousel.js.or)
 - [](https://swiperjs.com/get-started)
 - [](https://www.npmjs.com/package/lottie-react)
+- [](https://sweetalert2.github.io/)

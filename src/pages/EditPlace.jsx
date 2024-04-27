@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { IoAddCircleSharp } from "react-icons/io5";
 import { Link, useLoaderData } from "react-router-dom";
+import UseAllContinents from "../hooks/UseAllContinents";
+import { useEffect, useState } from "react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-const AddTouristsSpot = () => {
-
-    const continents = useLoaderData();
+const EditPlace = () => {
+    const singlePlace = useLoaderData();
+    const { allContinents } = UseAllContinents();
     const [continentId, setContinentId] = useState('');
     const [country, setCountry] = useState([]);
+    const { _id: id, touristsSpotName, description, photoURL, location, travelTime, totalVisitorsPerYear, averageCost } = singlePlace || {};
 
     useEffect(() => {
         fetch(`http://localhost:5000/continents/${continentId}`)
@@ -16,9 +17,9 @@ const AddTouristsSpot = () => {
             .then(data => {
                 setCountry(data);
             })
-    }, [continents, continentId]);
+    }, [allContinents, continentId]);
 
-    const handleCreateTouristSpot = (e) => {
+    const handleUpdateTouristSpot = (e) => {
         e.preventDefault();
         const doc = {
             touristsSpotName: e.target.touristsSpotName.value,
@@ -34,17 +35,17 @@ const AddTouristsSpot = () => {
             userEmail: "",
             userName: "",
         }
-        fetch('http://localhost:5000/add_places', {
-            method: 'POST',
+        fetch(`http://localhost:5000/places/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(doc)
         })
-            .then(response => response.json())
+            .then((response) => response.json())
             .then(data => {
-                if (data.insertedId) {
-                    toast.success("Place added successfully", {
+                if (data.modifiedCount > 0) {
+                    toast.success("Place update successfully", {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -54,9 +55,8 @@ const AddTouristsSpot = () => {
                         progress: undefined,
                         transition: Flip
                     });
-                    e.target.reset();
                 } else {
-                    toast.error("Place not added, please try again!", {
+                    toast.error("please try again!", {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -67,64 +67,56 @@ const AddTouristsSpot = () => {
                         transition: Flip
                     });
                 }
-            })
+            });
     }
+
     const handleCountiesId = (e) => {
         setContinentId(e.target.value);
     }
+
     return (
-        <div className="max-w-[1550px] w-[90%] mx-auto raleway">
-            <div className='my-8 space-x-2 flex flex-wrap justify-center items-center gap-2 raleway'>
-                <button className="text-2xl cursor-wait text-green-700"><IoAddCircleSharp /></button>
-                <Link to={"/add_tourists_spot"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize bg-green-800 text-white`}>add Tourists spot</Link>
-                <Link to={"/add_continent"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add continent</Link>
-                <Link to={"/add_country"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add country</Link>
-            </div>
-            <hr />
-            <div className="md:w-[70%] mx-auto mt-8">
-                <form onSubmit={handleCreateTouristSpot} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="dark:bg-gray-100 py-6 md:py-0 dark:text-gray-800 max-w-[1550px] w-[90%] mx-auto raleway">
+            <h1 className="text-center text-3xl font-bold my-9">Edit <span className="text-green-800">{touristsSpotName}</span> spot</h1>
+            <div className="md:w-[70%] mx-auto">
+                <form onSubmit={handleUpdateTouristSpot} className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Tourists Spot Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" />
+                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" defaultValue={touristsSpotName} />
                     </div>
-
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Continent</label>
                         <select onChange={handleCountiesId} name="continentId" className="input border-2 border-green-800">
                             <option value="">Select</option>
                             {
-                                continents.map(category => {
+                                allContinents.map(category => {
                                     return <option value={category._id} key={category._id}>{category.continentName}</option>
                                 })
                             }
                         </select>
                     </div>
-
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Country</label>
                         <select name="countryName" className="input border-2 border-green-800">
-                            <option value="">Select</option>
                             {
                                 country.map(con => <option value={con.countryName} key={con._id}>{con.countryName}</option>)
                             }
                         </select>
                     </div>
-
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" />
+                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" defaultValue={photoURL} />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Location</label>
-                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" />
+                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" defaultValue={location} />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Average Cost</label>
-                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" />
+                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" defaultValue={averageCost} />
                     </div>
                     <div className="md:col-span-3 flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
-                        <textarea className="input border-2 border-green-800" name="description" placeholder="Description"></textarea>
+                        <textarea className="input border-2 border-green-800" name="description" placeholder="Description" defaultValue={description}></textarea>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Seasonality</label>
@@ -138,15 +130,15 @@ const AddTouristsSpot = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Travel Time</label>
-                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" />
+                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" defaultValue={travelTime} />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Total Visitors Per Year</label>
-                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" />
+                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" defaultValue={totalVisitorsPerYear} />
                     </div>
                     <div className="space-x-2">
-                        <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Add" />
-                        <Link to={"/"} className=" cursor-pointer btn ">Cancel</Link>
+                        <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Update" />
+                        <Link to={-1} className=" cursor-pointer btn ">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -155,4 +147,4 @@ const AddTouristsSpot = () => {
     );
 };
 
-export default AddTouristsSpot;
+export default EditPlace;
