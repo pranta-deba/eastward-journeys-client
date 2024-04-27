@@ -1,14 +1,162 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UseAllProvider from "../hooks/UseAllProvider";
+import { ThreeDots } from 'react-loader-spinner'
+import { useState } from "react";
+import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import { getAuth, updateProfile } from "firebase/auth";
 
 const SignUp = () => {
+    const [googleLoader, setGoogleLoader] = useState(false);
+    const [createLoader, setCreateLoader] = useState(false);
+    const { createUser, googleSignIn, setAgain, again } = UseAllProvider();
+    const navigate = useNavigate();
+    const form = "/"
+
+    const handleGoogleSignIn = () => {
+        setGoogleLoader(true);
+        googleSignIn()
+            .then(() => {
+                navigate(form);
+                setGoogleLoader(false);
+            })
+            .catch(() => {
+                toast.error("Something wrong, please try again!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Flip
+                });
+                setGoogleLoader(false);
+            })
+    }
     const handleSignUp = e => {
         e.preventDefault();
+        setCreateLoader(true);
+        const username = e.target.username.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const cPassword = e.target.cPassword.value;
+        const photoURL = e.target.photoURL.value;
+        const terms = e.target.terms.checked;
+        if (!terms) {
+            toast.error("Please accept the terms and conditions!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            setCreateLoader(false);
+            return;
+        } else if (username == "" || email == "" || password == "" || cPassword == "" || photoURL == "") {
+            toast.error("Input field required.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            setCreateLoader(false);
+            return;
+        } else if (password !== cPassword) {
+            toast.error("Passwords do not match.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            setCreateLoader(false);
+            return;
+        }
+        const doc = {
+            username,
+            email,
+            photoURL
+        }
+        createUser(email, password)
+            .then(() => {
+                const auth = getAuth();
+                updateProfile(auth.currentUser, {
+                    displayName: username, photoURL: photoURL
+                }).then(() => {
+                    setAgain(!again);
+                    fetch('http://localhost:5000/add_user',{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(doc)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId) {
+                                toast.success("Registration successfully", {
+                                    position: "top-center",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    transition: Flip
+                                });
+                            }
+                        })
+                    e.target.reset();
+                    setTimeout(() => {
+                        setCreateLoader(false);
+                        navigate(form);
+                    }, 3000);
+                }).catch(() => {
+                    setCreateLoader(false);
+                    navigate(form);
+                });
+            })
+            .catch(() => {
+                toast.error("Something wrong, please try again.!", {
+                    position: "top-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Bounce
+                });
+                setCreateLoader(false);
+            });
+
 
     }
+
+    const loaderComponent = <>
+        <ThreeDots
+            visible={true}
+            height="20"
+            width="70"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+        /></>
     return (
-        <div className="max-w-[1550px] w-[90%] mx-auto min-h-[calc(100vh-69.600px)] poppins flex justify-center items-center gap-8">
+        <div className="max-w-[1550px] w-[90%] mx-auto min-h-[calc(100vh-69.600px)] poppins flex flex-col md:flex-row justify-center items-center gap-8">
             <div className="flex-1 flex flex-col w-full  p-12 space-y-4 text-center dark:bg-gray-50 dark:text-gray-800 shadow-md shadow-green-100">
                 <h1 className="text-2xl font-semibold text-green-800">Create your account</h1>
                 <p className="text-sm text-center dark:text-gray-600">Already account?
@@ -16,17 +164,23 @@ const SignUp = () => {
                 </p>
                 <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="flex flex-col gap-3">
-                        <input id="text" name="text" type="text" placeholder="Username" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" />
-                        <input id="email" name="email" type="email" placeholder="Email address" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" />
-                        <input id="password" name="password" type="password" placeholder="Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" />
-                        <input id="cPassword" name="cPassword" type="password" placeholder="Confirm Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" />
-                        <input id="photo" name="photoURL" type="text" placeholder="Photo URL" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" />
+                        <input id="text" name="username" type="text" placeholder="Username" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required />
+
+                        <input id="email" name="email" type="email" placeholder="Email address" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required />
+
+                        <input id="password" name="password" type="password" placeholder="Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" minLength={6} maxLength={20} required />
+
+                        <input id="cPassword" name="cPassword" type="password" placeholder="Confirm Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" minLength={6} maxLength={20} required />
+
+                        <input id="photo" name="photoURL" type="text" placeholder="Photo URL" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required />
+
                         <div className="text-start flex items-center gap-2 raleway">
-                            <input type="checkbox" className="checkbox checkbox-success" />
+                            <input type="checkbox" name="terms" className="checkbox checkbox-success" required />
                             <span className="label-text">I agree to the <span className="text-green-800 font-semibold">terms and conditions</span></span>
                         </div>
+
                     </div>
-                    <input className="w-full cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Create" />
+                    <button className="w-full cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit">{createLoader ? loaderComponent : "Create"}</button>
                 </form>
             </div>
 
@@ -37,11 +191,11 @@ const SignUp = () => {
                     <hr className="w-full dark:text-gray-600" />
                 </div>
                 <div className="my-6 space-y-4">
-                    <button aria-label="Login with Google" type="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600">
+                    <button onClick={handleGoogleSignIn} aria-label="Login with Google" type="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
                             <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z"></path>
                         </svg>
-                        <p>Login with Google</p>
+                        {googleLoader ? loaderComponent : <p>Login with Google</p>}
                     </button>
                     <button aria-label="Login with GitHub" role="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
@@ -57,6 +211,7 @@ const SignUp = () => {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

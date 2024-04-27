@@ -7,3 +7,4 @@
 - [](https://swiperjs.com/get-started)
 - [](https://www.npmjs.com/package/lottie-react)
 - [](https://sweetalert2.github.io/)
+- [](https://www.npmjs.com/package/react-loader-spinner)
