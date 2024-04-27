@@ -3,9 +3,10 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { Link, useLoaderData } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import UseAllProvider from "../hooks/UseAllProvider";
 
 const AddTouristsSpot = () => {
-
+    const { user } = UseAllProvider();
     const continents = useLoaderData();
     const [continentId, setContinentId] = useState('');
     const [country, setCountry] = useState([]);
@@ -31,8 +32,8 @@ const AddTouristsSpot = () => {
             travelTime: e.target.travelTime.value,
             totalVisitorsPerYear: e.target.totalVisitorsPerYear.value,
             seasonality: e.target.seasonality.value,
-            userEmail: "",
-            userName: "",
+            userEmail: user.email || null,
+            userName: user.displayName || null,
         }
         fetch('http://localhost:5000/add_places', {
             method: 'POST',

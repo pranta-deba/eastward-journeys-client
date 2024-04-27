@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAllProvider from "../hooks/UseAllProvider";
 import { ThreeDots } from 'react-loader-spinner'
 import { useState } from "react";
@@ -11,7 +11,8 @@ const SignUp = () => {
     const [createLoader, setCreateLoader] = useState(false);
     const { createUser, googleSignIn, setAgain, again } = UseAllProvider();
     const navigate = useNavigate();
-    const form = "/"
+    const location = useLocation();
+    const form = location.state||"/";
 
     const handleGoogleSignIn = () => {
         setGoogleLoader(true);

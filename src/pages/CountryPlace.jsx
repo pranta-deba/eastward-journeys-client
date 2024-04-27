@@ -20,7 +20,7 @@ const CountryPlace = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                 {
                     countryPlaces.map(place => {
-                        return <PlaceCard key={place._id} place={place} />
+                        return <PlaceCard key={place._id} place={place} access={false}/>
                     })
                 }
             </div>

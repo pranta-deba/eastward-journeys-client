@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import UseAllProvider from "../hooks/UseAllProvider";
 
 const PlaceCard = ({ place, access, handleDeletePlace }) => {
+    const { user } = UseAllProvider();
     const { _id: id, touristsSpotName, photoURL, location, averageCost } = place || {};
     return (
         <div className="relative flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
@@ -21,9 +23,9 @@ const PlaceCard = ({ place, access, handleDeletePlace }) => {
                 <h1 className="text-xl font-bold mt-16 text-center raleway">{touristsSpotName}</h1>
                 <div className="flex justify-center items-center my-3 gap-4 relative z-20">
                     <Link to={`/details/${id}`} className="flex text-center items-center gap-1  text-green-700 font-light"><TbEyeShare />Read more ..</Link>
-                    {access &&
+                    {access && user?
                         <><Link to={`/edit/${id}`} className="flex items-center gap-1 text-green-400"><FaEdit />Edit</Link>
-                            <button onClick={() => handleDeletePlace(id)} className="flex items-center gap-1 text-red-400"><RiDeleteBin6Line />Delete</button></>
+                            <button onClick={() => handleDeletePlace(id)} className="flex items-center gap-1 text-red-400"><RiDeleteBin6Line />Delete</button></>:""
                     }
                 </div>
                 <p className="absolute top-0 left-3 text-white bg-green-700 py-2 px-4"><span className="text-xl">${averageCost}</span>/person</p>

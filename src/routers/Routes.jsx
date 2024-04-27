@@ -10,6 +10,7 @@ import TouristsPlace from "../pages/TouristsPlace";
 import EditPlace from "../pages/EditPlace";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import MyList from "../pages/MyList";
 
 
 export const router = createBrowserRouter([
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/my_list",
-                element: <h1>my_list</h1>
+                element: <MyList/>
             },
             {
                 path: "/blogs",

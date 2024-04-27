@@ -49,13 +49,11 @@ const TouristsPlace = () => {
                                 text: "This spot has been deleted.",
                                 icon: "success"
                             });
-                            const filteredPlaces = allPlaces.filter(place => place._id!== id);
+                            const filteredPlaces = allPlaces.filter(place => place._id !== id);
                             setPlaces(filteredPlaces);
                             setActive('all');
                         }
                     })
-
-
             }
         });
     }
@@ -73,7 +71,7 @@ const TouristsPlace = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                     {
                         places.map(place => {
-                            return <PlaceCard key={place._id} place={place} access={true} handleDeletePlace={handleDeletePlace}/>
+                            return <PlaceCard key={place._id} place={place} access={true} handleDeletePlace={handleDeletePlace} />
                         })
                     }
                 </div>
