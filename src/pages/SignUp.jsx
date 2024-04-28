@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import { getAuth, updateProfile } from "firebase/auth";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
     const [googleLoader, setGoogleLoader] = useState(false);
@@ -123,7 +124,7 @@ const SignUp = () => {
                     displayName: username, photoURL: photoURL
                 }).then(() => {
                     setAgain(!again);
-                    fetch('http://localhost:5000/add_user', {
+                    fetch('https://eastward-journeys-server.vercel.app/add_user', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -185,6 +186,9 @@ const SignUp = () => {
         /></>
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto min-h-[calc(100vh-69.600px)] poppins flex flex-col md:flex-row justify-center items-center gap-8">
+            <Helmet>
+                <title>Eastward - Create Account</title>
+            </Helmet>
             <div className="flex-1 flex flex-col w-full  p-12 space-y-4 text-center dark:bg-gray-50 dark:text-gray-800 shadow-md shadow-green-100">
                 <h1 className="text-2xl font-semibold text-green-800">Create your account</h1>
                 <p className="text-sm text-center dark:text-gray-600">Already account?

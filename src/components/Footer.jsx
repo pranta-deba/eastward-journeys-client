@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer className="shadow-inner border-t-2 border-gray-100 poppins">
             <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
-                <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
+                <div data-aos="fade-up" className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
                     <a
                         className="inline-block rounded-full bg-green-600 p-2 text-white shadow transition hover:bg-green-500 sm:p-3 lg:p-4 cursor-pointer"
                         onClick={() => {
@@ -30,7 +30,7 @@ const Footer = () => {
                     </a>
                 </div>
 
-                <div className="lg:flex lg:items-end lg:justify-between">
+                <div data-aos="fade-up" className="lg:flex lg:items-end lg:justify-between">
                     <div>
                         <div className="flex justify-center text-teal-600 lg:justify-start">
                             <Link t="/" className="flex items-center justify-center text-xl"><img src={themeMail === "synthwave" ? "/logo2.png" : "/logo.png"} alt="" className="w-[90px] md:w-[140px]" /></Link>

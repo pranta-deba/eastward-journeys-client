@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import UseAllProvider from "../hooks/UseAllProvider";
+import { Helmet } from "react-helmet-async";
 
 const EditPlace = () => {
     const singlePlace = useLoaderData();
@@ -16,7 +17,7 @@ const EditPlace = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch(`http://localhost:5000/continents/${continentId}`)
+        fetch(`https://eastward-journeys-server.vercel.app/continents/${continentId}`)
             .then((res) => res.json())
             .then(data => {
                 setCountry(data);
@@ -60,7 +61,7 @@ const EditPlace = () => {
             });
             return;
         }
-        fetch(`http://localhost:5000/places/${id}`, {
+        fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -101,6 +102,9 @@ const EditPlace = () => {
 
     return (
         <div className="dark:bg-gray-100 py-6 md:py-0 dark:text-gray-800 max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
+            <Helmet>
+                <title>Eastward - Edit - {touristsSpotName}</title>
+            </Helmet>
             <h1 className="text-center text-3xl font-bold my-9">Edit <span className="text-green-800">{touristsSpotName}</span> spot</h1>
             <div className="md:w-[70%] mx-auto">
                 <form onSubmit={handleUpdateTouristSpot} className="grid grid-cols-1 md:grid-cols-3 gap-3">

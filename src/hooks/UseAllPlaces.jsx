@@ -6,7 +6,7 @@ const UseAllPlaces = () => {
 
     useEffect(() => {
         const handleData = async () => {
-            const res = await fetch("http://localhost:5000/places");
+            const res = await fetch("https://eastward-journeys-server.vercel.app/places");
             const data = await res.json();
             setAllPlaces(data);
             setAllPlacesLoading(false);

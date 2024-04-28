@@ -4,6 +4,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import { Helmet } from "react-helmet-async";
 
 const SignIn = () => {
     const { signIn } = UseAllProvider();
@@ -41,7 +42,7 @@ const SignIn = () => {
                 const lastSignInTime = data?.user?.metadata?.lastSignInTime;
                 const doc = { email: data.user.email, lastSignInTime };
 
-                fetch('http://localhost:5000/users', {
+                fetch('https://eastward-journeys-server.vercel.app/users', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -95,6 +96,9 @@ const SignIn = () => {
         /></>
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto min-h-[calc(100vh-69.600px)] poppins flex justify-center items-center">
+            <Helmet>
+                <title>Eastward - Login</title>
+            </Helmet>
             <div className="flex flex-col w-full max-w-md p-12 space-y-4 text-center dark:bg-gray-50 dark:text-gray-800 shadow-md shadow-green-100">
                 <h1 className="text-2xl font-semibold text-green-800">Sign in to your account</h1>
                 <p className="text-sm text-center dark:text-gray-600">Dont have account?

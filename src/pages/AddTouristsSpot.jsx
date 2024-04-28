@@ -4,6 +4,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import UseAllProvider from "../hooks/UseAllProvider";
+import { Helmet } from "react-helmet-async";
 
 const AddTouristsSpot = () => {
     const { user } = UseAllProvider();
@@ -14,7 +15,7 @@ const AddTouristsSpot = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch(`http://localhost:5000/continents/${continentId}`)
+        fetch(`https://eastward-journeys-server.vercel.app/continents/${continentId}`)
             .then((res) => res.json())
             .then(data => {
                 setCountry(data);
@@ -58,7 +59,7 @@ const AddTouristsSpot = () => {
             });
             return;
         }
-        fetch('http://localhost:5000/add_places', {
+        fetch('https://eastward-journeys-server.vercel.app/add_places', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -98,6 +99,9 @@ const AddTouristsSpot = () => {
     }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
+            <Helmet>
+                <title>Eastward - Add Spot</title>
+            </Helmet>
             <div className='my-8 space-x-2 flex flex-wrap justify-center items-center gap-2 raleway'>
                 <button className="text-2xl cursor-wait text-green-700"><IoAddCircleSharp /></button>
                 <Link to={"/add_tourists_spot"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize bg-green-800 text-white`}>add Tourists spot</Link>

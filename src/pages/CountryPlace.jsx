@@ -1,11 +1,13 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import PlaceCard from "../components/PlaceCard";
 import Lottie from "lottie-react";
 import notSearch from "../assets/searchNot.json";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const CountryPlace = () => {
     const countryPlaces = useLoaderData();
+    const {country} = useParams();
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
@@ -17,6 +19,9 @@ const CountryPlace = () => {
     }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
+            <Helmet>
+                <title>Eastward - {country}</title>
+            </Helmet>
             <div className='text-center my-12'>
                 <h1 className='text-4xl font-bold'>Tour Destination</h1>
             </div>

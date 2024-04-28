@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
 import { CirclesWithBar } from "react-loader-spinner";
+import { Helmet } from "react-helmet-async";
 
 const TouristsPlace = () => {
     const { allPlaces, allPlacesLoading } = UseAllPlaces();
@@ -60,7 +61,7 @@ const TouristsPlace = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/places/${id}`, {
+                fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json())
                     .then(deleted => {
@@ -81,6 +82,9 @@ const TouristsPlace = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Eastward - Tourists Spot</title>
+            </Helmet>
             <div className="max-w-[1550px] w-[90%] mx-auto mb-16 poppins  min-h-screen">
                 <div className='my-12 space-x-2 flex flex-wrap gap-2 raleway'>
                     <button className="text-2xl cursor-wait text-green-700"><BiCategory /></button>

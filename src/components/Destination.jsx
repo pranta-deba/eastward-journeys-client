@@ -11,7 +11,7 @@ const Destination = () => {
 
     if (allCountryLoading) {
         return (
-            <div className='h-screen flex justify-center items-center'>
+            <div  data-aos="fade-up" className='h-screen flex justify-center items-center'>
                 <CirclesWithBar
                     height="100"
                     width="100"
@@ -30,10 +30,10 @@ const Destination = () => {
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
             <div className='text-center my-12'>
-                <p className='text-green-800'>Eastward Provide Country</p>
-                <h1 className='text-4xl font-bold'>Select Your Country</h1>
+                <p  data-aos="fade-up" className='text-green-800'>Eastward Provide Country</p>
+                <h1  data-aos="fade-up" className='text-4xl font-bold'>Select Your Country</h1>
             </div>
-            <div>
+            <div  data-aos="fade-up">
                 <Swiper
 
                     slidesPerView={1}

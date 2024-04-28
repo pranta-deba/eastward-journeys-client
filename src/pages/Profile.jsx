@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import UseAllProvider from "../hooks/UseAllProvider";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
     const {user} = UseAllProvider();
@@ -8,6 +9,9 @@ const Profile = () => {
     }, [])
     return (
         <div className="min-h-[calc(100vh-514.3px)] max-w-[1550px] w-[90%] mx-auto poppins py-4 md:py-28">
+            <Helmet>
+                <title>Eastward - Profile</title>
+            </Helmet>
             <div className="flex justify-center items-center">
                 <div className="p-8 sm:flex sm:space-x-6 dark:bg-gray-50 dark:text-gray-800 border">
                     <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">

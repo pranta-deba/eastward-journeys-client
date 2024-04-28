@@ -7,7 +7,7 @@ const TourDestination = () => {
     const { allPlaces, allPlacesLoading } = UseAllPlaces();
     if (allPlacesLoading) {
         return (
-            <div className='h-screen flex justify-center items-center'>
+            <div  data-aos="fade-up" className='h-screen flex justify-center items-center'>
                 <CirclesWithBar
                     height="100"
                     width="100"
@@ -24,10 +24,10 @@ const TourDestination = () => {
         )
     }
     return (
-        <div className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
+        <div  className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
             <div className='text-center my-12'>
-                <p className='text-green-800'>Destination</p>
-                <h1 className='text-4xl font-bold'>Tour Destination</h1>
+                <p  data-aos="fade-up" className='text-green-800'>Destination</p>
+                <h1  data-aos="fade-up" className='text-4xl font-bold'>Tour Destination</h1>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                 {
@@ -36,7 +36,7 @@ const TourDestination = () => {
                     })
                 }
             </div>
-            <div className="text-center py-12">
+            <div  data-aos="fade-up" className="text-center py-12">
                 <Link to='/tourists_spot' className="btn bg-green-800 text-white hover:text-black">See More</Link>
             </div>
         </div>

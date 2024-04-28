@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
 import { CirclesWithBar } from "react-loader-spinner";
+import { Helmet } from "react-helmet-async";
 
 const MyList = () => {
     const { user } = UseAllProvider();
@@ -35,7 +36,7 @@ const MyList = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/places/${id}`, {
+                fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json())
                     .then(deleted => {
@@ -80,6 +81,9 @@ const MyList = () => {
     }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto raleway">
+            <Helmet>
+                <title>Eastward - Your List</title>
+            </Helmet>
             <div className='text-center my-12'>
                 <h1 className='text-4xl font-bold'>{user.displayName}&apos;s list</h1>
             </div>

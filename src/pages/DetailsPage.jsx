@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaBookmark } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
@@ -17,6 +18,9 @@ const DetailsPage = () => {
     return (
 
         <div>
+            <Helmet>
+                <title>Eastward - {touristsSpotName}</title>
+            </Helmet>
             <div style={{
                 backgroundImage: `url(${photoURL})`
             }} className="p-12 bg-bottom bg-fixed">

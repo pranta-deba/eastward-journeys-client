@@ -5,6 +5,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import { useLoaderData } from "react-router-dom";
 import avater from "../assets/avater.jpg"
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const About = () => {
     const reviews = useLoaderData();
@@ -13,9 +14,12 @@ const About = () => {
     }, [])
     return (
         <div className="poppins">
-            <h1 className="text-center text-4xl font-bold mt-4 md:mt-8 max-w-[1550px] w-[90%] mx-auto ">About Us</h1>
+            <Helmet>
+                <title>Eastward - About</title>
+            </Helmet>
+            <h1 data-aos="fade-up" className="text-center text-4xl font-bold mt-4 md:mt-8 max-w-[1550px] w-[90%] mx-auto ">About Us</h1>
             <div className="max-w-[1550px] w-[90%] mx-auto flex flex-col-reverse lg:flex-row justify-center items-center gap-6">
-                <div className="flex-1 md:px-8 space-y-4">
+                <div data-aos="fade-up" className="flex-1 md:px-8 space-y-4">
                     <h1 className="text-sm font-bold text-green-800">DISCOVER STORY</h1>
                     <p className="text-3xl">Our Story</p>
                     <p className="text-sm">Welcome to my corner of the world, where ancient history meets vibrant culture, and every alleyway whispers tales of antiquity. My journey through the Middle East wasnt just about visiting landmarks; it was about immersing myself in a tapestry of traditions, flavors, and experiences that left an indelible mark on my soul.</p>
@@ -23,11 +27,11 @@ const About = () => {
                     <p className="text-sm">It all began with a desire to step off the beaten path and delve into the unknown. From the moment I set foot in this enchanting region, I was captivated by its allure. The scent of spices wafting through bustling markets, the echo of the call to prayer reverberating against centuries-old walls – each moment was a symphony of senses.</p>
                 </div>
                 <div className="flex-1 md:px-8">
-                    <img src="/traveler.png" alt="" className="lg:max-w-[600px]" />
+                    <img data-aos="fade-up" src="/traveler.png" alt="" className="lg:max-w-[600px]" />
                 </div>
             </div>
             <div className="max-w-[1550px] w-[90%] mx-auto  flex flex-col-reverse lg:flex-row-reverse justify-center items-center gap-6 mt-4">
-                <div className="flex-1 md:px-8 space-y-4">
+                <div data-aos="fade-up" className="flex-1 md:px-8 space-y-4">
                     <h1 className="text-sm font-bold text-green-800">OUR MISSION</h1>
                     <p className="text-3xl">Our Mission</p>
                     <p className="text-sm">At Eastward journeys, our mission is simple yet profound: to bridge cultures, inspire wanderlust, and foster a deep appreciation for the diverse tapestry of the Middle East. We believe that travel is not just about visiting new places; its about forging connections, embracing diversity, and celebrating the shared humanity that unites us all.</p>
@@ -35,7 +39,7 @@ const About = () => {
                     <p className="text-sm">Our journey began with a passion for exploration and a desire to showcase the rich heritage and unparalleled beauty of the Middle East. From the ancient wonders of Egypt to the bustling souks of Morocco, this region is a treasure trove of history, culture, and natural splendor waiting to be discovered.</p>
                 </div>
                 <div className="flex-1 md:px-8">
-                    <img src="/hero_1.jpg" alt="" className="lg:max-w-[600px]" />
+                    <img data-aos="fade-up" src="/hero_1.jpg" alt="" className="lg:max-w-[600px]" />
                 </div>
             </div>
             <div className="bg-[url('/hero_1.jpg')] bg-no-repeat bg-cover bg-center bg-fixed my-14">
@@ -84,7 +88,8 @@ const About = () => {
                     {
                         reviews.map((review, idx) => (
                             <SwiperSlide key={idx}>
-                                <div className="container flex flex-col w-full max-w-lg p-6 mx-auto divide-y rounded-md dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-800 shadow-2xl min-h-[400px]">
+                                <div data-aos="fade-up"
+                                    data-aos-duration={1000*(idx+1)} className="container flex flex-col w-full max-w-lg p-6 mx-auto divide-y rounded-md dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-800 shadow-2xl min-h-[400px]">
                                     <div className="flex justify-between p-4">
                                         <div className="flex space-x-4">
                                             <div>

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link, useLoaderData } from "react-router-dom";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
@@ -33,7 +34,7 @@ const AddCounty = () => {
             });
             return;
         }
-        fetch('http://localhost:5000/add_country', {
+        fetch('https://eastward-journeys-server.vercel.app/add_country', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,6 +71,9 @@ const AddCounty = () => {
     }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
+            <Helmet>
+                <title>Eastward - Add Country</title>
+            </Helmet>
             <div className='my-8 space-x-2 flex flex-wrap justify-center items-center gap-2 raleway'>
                 <button className="text-2xl cursor-wait text-green-700"><IoAddCircleSharp /></button>
                 <Link to={"/add_tourists_spot"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add Tourists spot</Link>
