@@ -14,12 +14,14 @@ import MyList from "../pages/MyList";
 import Blogs from "../pages/Blogs";
 import Private from "./Private";
 import About from "../pages/About";
+import Profile from "../pages/Profile";
+import Error from "../pages/Error";
 
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        errorElement: "error pages",
+        errorElement: <Error/>,
         element: <App />,
         children: [
             {
@@ -57,29 +59,33 @@ export const router = createBrowserRouter([
             {
                 path: "/edit/:id",
                 loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
-                element: <Private><EditPlace/></Private>
+                element: <Private><EditPlace /></Private>
             },
             {
                 path: "/my_list",
-                element: <Private><MyList/></Private>
+                element: <Private><MyList /></Private>
             },
             {
                 path: "/blogs",
-                loader: ()=> fetch('/blogs.json'),
-                element: <Blogs/>
+                loader: () => fetch('/blogs.json'),
+                element: <Blogs />
             },
             {
                 path: "/about",
-                loader: ()=> fetch('/review.json'),
-                element: <About/>
+                loader: () => fetch('/review.json'),
+                element: <About />
             },
             {
                 path: "/signIn",
-                element: <SignIn/>
+                element: <SignIn />
             },
             {
                 path: "/signUp",
-                element: <SignUp/>
+                element: <SignUp />
+            },
+            {
+                path: "/profile",
+                element: <Private><Profile /></Private>
             },
         ]
     },

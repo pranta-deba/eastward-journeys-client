@@ -31,7 +31,7 @@ const Destination = () => {
         <div className="max-w-[1550px] w-[90%] mx-auto my-16 poppins">
             <div className='text-center my-12'>
                 <p className='text-green-800'>Eastward Provide Country</p>
-                <h1 className='text-4xl font-bold'>Select Your Destination</h1>
+                <h1 className='text-4xl font-bold'>Select Your Country</h1>
             </div>
             <div>
                 <Swiper

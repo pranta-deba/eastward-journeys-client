@@ -20,6 +20,9 @@ const MyList = () => {
             setPlaces(filterPlaces);
         }
     }, [user, allPlaces])
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
 
     const handleDeletePlace = (id) => {
         Swal.fire({
@@ -70,7 +73,7 @@ const MyList = () => {
     }
 
     if (user && places.length < 1) {
-        return <div className="h-screen max-w-[600px] mx-auto text-center">
+        return <div className="min-h-screen max-w-[600px] mx-auto text-center">
             <Lottie animationData={notSearch} />
             <Link to={-1} className="btn px-9 rounded border-b-2 border-green-800 focus:bg-green-800 focus:text-white">back</Link>
         </div>

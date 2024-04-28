@@ -8,7 +8,7 @@ import 'sweetalert2/dist/sweetalert2.css'
 import { CirclesWithBar } from "react-loader-spinner";
 
 const TouristsPlace = () => {
-    const { allPlaces ,allPlacesLoading} = UseAllPlaces();
+    const { allPlaces, allPlacesLoading } = UseAllPlaces();
     const { allCountry } = UseAllCountry();
     const [places, setPlaces] = useState([]);
     const [active, setActive] = useState('');
@@ -16,6 +16,9 @@ const TouristsPlace = () => {
         setPlaces(allPlaces);
         setActive('all');
     }, [allPlaces])
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
 
     if (allPlacesLoading) {
         return (
@@ -88,7 +91,7 @@ const TouristsPlace = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                     {
-                        places.map(place => {
+                        places.map((place) => {
                             return <PlaceCard key={place._id} place={place} access={true} handleDeletePlace={handleDeletePlace} />
                         })
                     }

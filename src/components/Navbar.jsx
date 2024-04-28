@@ -124,7 +124,7 @@ const Navbar = () => {
                         </div>
                     </div>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Profile</a></li>
+                        <li><Link to={"/profile"}>Profile</Link></li>
                         <li><a>Setting</a></li>
                         <li onClick={HandleLogout}><a className="flex items-center gap-1"><CiLogout />Logout</a></li>
                     </ul>

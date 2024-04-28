@@ -10,7 +10,9 @@ const AddTouristsSpot = () => {
     const continents = useLoaderData();
     const [continentId, setContinentId] = useState('');
     const [country, setCountry] = useState([]);
-
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     useEffect(() => {
         fetch(`http://localhost:5000/continents/${continentId}`)
             .then((res) => res.json())
@@ -95,12 +97,12 @@ const AddTouristsSpot = () => {
         setContinentId(e.target.value);
     }
     return (
-        <div className="max-w-[1550px] w-[90%] mx-auto raleway">
+        <div className="max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
             <div className='my-8 space-x-2 flex flex-wrap justify-center items-center gap-2 raleway'>
                 <button className="text-2xl cursor-wait text-green-700"><IoAddCircleSharp /></button>
                 <Link to={"/add_tourists_spot"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize bg-green-800 text-white`}>add Tourists spot</Link>
-                <Link to={"/add_continent"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add continent</Link>
                 <Link to={"/add_country"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add country</Link>
+                <Link to={"/add_continent"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add continent</Link>
             </div>
             <hr />
             <div className="md:w-[70%] mx-auto mt-8">

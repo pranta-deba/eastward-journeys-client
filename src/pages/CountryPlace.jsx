@@ -2,10 +2,13 @@ import { Link, useLoaderData } from "react-router-dom";
 import PlaceCard from "../components/PlaceCard";
 import Lottie from "lottie-react";
 import notSearch from "../assets/searchNot.json";
+import { useEffect } from "react";
 
 const CountryPlace = () => {
     const countryPlaces = useLoaderData();
-
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     if (countryPlaces.length < 1) {
         return <div className="h-screen max-w-[600px] mx-auto text-center">
             <Lottie animationData={notSearch} />

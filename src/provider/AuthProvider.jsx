@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase.config";
@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [themeMail, setThemeMail] = useState('');
 
     const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -33,6 +34,9 @@ const AuthProvider = ({ children }) => {
     const googleSignIn = () => {
         return signInWithPopup(auth, googleProvider);
     }
+    const githubSignIn = () => {
+        return signInWithPopup(auth, githubProvider);
+    }
     const signIn = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
@@ -40,11 +44,8 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-
-    console.log(user, again);
-
     return (
-        <AuthContext.Provider value={{ createUser, googleSignIn, signIn, logOut, user, userLoader, again, setAgain, themeMail, setThemeMail }}>
+        <AuthContext.Provider value={{ createUser, googleSignIn,githubSignIn, signIn, logOut, user, userLoader, again, setAgain, themeMail, setThemeMail }}>
             {children}
         </AuthContext.Provider>
     );

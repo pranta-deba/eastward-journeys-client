@@ -2,15 +2,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAllProvider from "../hooks/UseAllProvider";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
 const SignIn = () => {
     const { signIn } = UseAllProvider();
     const [signInLoader, setSignInLoader] = useState(false);
+    const [passToggle, setPassToggle] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const form = location.state||"/";
+    const form = location.state || "/";
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -32,24 +36,51 @@ const SignIn = () => {
             setSignInLoader(false);
             return;
         }
-        signIn(email,password)
-        .then(() => {
-            navigate(form);
-            setSignInLoader(false);
-        })
-        .catch(error => {
-            toast.error(error.message.split('(')[1].split(')')[0].split("/")[1] + " please correct email and password.!", {
-                position: "top-left",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                transition: Bounce
-            });
-            setSignInLoader(false);
-        })
+        signIn(email, password)
+            .then((data) => {
+                const lastSignInTime = data?.user?.metadata?.lastSignInTime;
+                const doc = { email: data.user.email, lastSignInTime };
+
+                fetch('http://localhost:5000/users', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(doc)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.modifiedCount > 0) {
+                            setSignInLoader(false);
+                            navigate(form);
+                        } else {
+                            setSignInLoader(false);
+                            toast.error("Something went wrong.!", {
+                                position: "top-left",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                transition: Bounce
+                            });
+                        }
+                    })
+            })
+            .catch(error => {
+                toast.error(error.message.split('(')[1].split(')')[0].split("/")[1] + " please correct email and password.!", {
+                    position: "top-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Bounce
+                });
+                setSignInLoader(false);
+            })
     }
     const loaderComponent = <>
         <ThreeDots
@@ -70,11 +101,12 @@ const SignIn = () => {
                     <Link to="/signUp" className="focus:underline hover:underline"> Sign up here</Link>
                 </p>
                 <form onSubmit={handleSignIn} className="space-y-4">
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 relative">
+                        <input id="email" name="email" type="email" placeholder="Email address" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required />
 
-                        <input id="email" name="email" type="email" placeholder="Email address" className="rounded-t-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required/>
-
-                        <input id="password" name="password" type="text" placeholder="Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required minLength={6} maxLength={20}/>
+                        <input id="password" name="password" type={passToggle ? "text" : "password"} placeholder="Password" className="-mt-1 rounded-b-md dark:border-gray-400 dark:bg-gray-50 dark:text-green-800 focus:dark:ring-green-600 focus:dark:border-green-600 focus:ring-2 py-3 border px-2 outline-none" required minLength={6} maxLength={20} />
+                        {!passToggle ? <span onClick={() => setPassToggle(!passToggle)} className="absolute bottom-2 right-1 text-xs cursor-pointer font-light p-2 overflow-hidden">Show</span> :
+                            <span onClick={() => setPassToggle(!passToggle)} className="absolute bottom-2 right-1 text-xs cursor-pointer font-light p-2 overflow-hidden">Hide</span>}
                     </div>
                     <div className="flex justify-between">
                         <div className="flex items-center gap-1">

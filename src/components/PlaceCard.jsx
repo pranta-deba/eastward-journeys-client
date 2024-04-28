@@ -7,7 +7,7 @@ import UseAllProvider from "../hooks/UseAllProvider";
 
 const PlaceCard = ({ place, access, handleDeletePlace }) => {
     const { user } = UseAllProvider();
-    const { _id: id, touristsSpotName, photoURL, location, averageCost } = place || {};
+    const { _id: id, touristsSpotName, photoURL, location, averageCost,travelTime } = place || {};
     return (
         <div className="relative flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
             <div>
@@ -16,7 +16,7 @@ const PlaceCard = ({ place, access, handleDeletePlace }) => {
                 </Link>
                 <div className="p-2 absolute w-[85%]">
                     <div className="bg-white border transform -translate-y-16 p-5">
-                        <p className="uppercase font-semibold text-green-900">7-10 days</p>
+                        <p className="uppercase font-semibold text-green-900">{travelTime} days</p>
                         <p className="flex items-center gap-1 text-slate-500"><TbLocationUp />{location}</p>
                     </div>
                 </div>
@@ -28,7 +28,7 @@ const PlaceCard = ({ place, access, handleDeletePlace }) => {
                             <button onClick={() => handleDeletePlace(id)} className="flex items-center gap-1 text-red-400"><RiDeleteBin6Line />Delete</button></>:""
                     }
                 </div>
-                <p className="absolute top-0 left-3 text-white bg-green-700 py-2 px-4"><span className="text-xl">${averageCost}</span>/person</p>
+                <p className="absolute top-0 left-3 text-white bg-green-700 py-2 px-4"><span className="text-xl">${averageCost}</span>/per day</p>
             </div>
         </div>
     );

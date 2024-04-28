@@ -12,7 +12,9 @@ const EditPlace = () => {
     const [country, setCountry] = useState([]);
     const { user } = UseAllProvider();
     const { _id: id, touristsSpotName, description, photoURL, location, travelTime, totalVisitorsPerYear, averageCost } = singlePlace || {};
-
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     useEffect(() => {
         fetch(`http://localhost:5000/continents/${continentId}`)
             .then((res) => res.json())
@@ -98,13 +100,13 @@ const EditPlace = () => {
     }
 
     return (
-        <div className="dark:bg-gray-100 py-6 md:py-0 dark:text-gray-800 max-w-[1550px] w-[90%] mx-auto raleway">
+        <div className="dark:bg-gray-100 py-6 md:py-0 dark:text-gray-800 max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
             <h1 className="text-center text-3xl font-bold my-9">Edit <span className="text-green-800">{touristsSpotName}</span> spot</h1>
             <div className="md:w-[70%] mx-auto">
                 <form onSubmit={handleUpdateTouristSpot} className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Tourists Spot Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" defaultValue={touristsSpotName} required/>
+                        <input className="input border-2 border-green-800" type="text" name="touristsSpotName" placeholder="Tourists Spot Name" defaultValue={touristsSpotName} required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Select Continent</label>
@@ -127,15 +129,15 @@ const EditPlace = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" defaultValue={photoURL} required/>
+                        <input className="input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" defaultValue={photoURL} required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Location</label>
-                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" defaultValue={location} required/>
+                        <input className="input border-2 border-green-800" type="text" name="location" placeholder="Location" defaultValue={location} required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Average Cost</label>
-                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" defaultValue={averageCost} required/>
+                        <input className="c input border-2 border-green-800" type="text" name="averageCost" placeholder="Average Cost" defaultValue={averageCost} required />
                     </div>
                     <div className="md:col-span-3 flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
@@ -153,11 +155,11 @@ const EditPlace = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Travel Time</label>
-                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" defaultValue={travelTime} required/>
+                        <input className="input border-2 border-green-800" type="text" name="travelTime" placeholder="Travel Time" defaultValue={travelTime} required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Total Visitors Per Year</label>
-                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" defaultValue={totalVisitorsPerYear} required/>
+                        <input className="input border-2 border-green-800" type="text" name="totalVisitorsPerYear" placeholder="Total Visitors Per Year" defaultValue={totalVisitorsPerYear} required />
                     </div>
                     <div className="space-x-2">
                         <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Update" />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 import { useLoaderData } from "react-router-dom";
 
@@ -6,7 +6,9 @@ const Blogs = () => {
     const blogs = useLoaderData();
     const [data, setData] = useState(blogs.slice(0, 5));
     const [showAll, setShowAll] = useState(false);
-
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     const handleShowAll = () => {
         setData(blogs);
         setShowAll(true)

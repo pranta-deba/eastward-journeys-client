@@ -4,9 +4,13 @@ import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { useLoaderData } from "react-router-dom";
 import avater from "../assets/avater.jpg"
+import { useEffect } from 'react';
 
 const About = () => {
     const reviews = useLoaderData();
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     return (
         <div className="poppins">
             <h1 className="text-center text-4xl font-bold mt-4 md:mt-8 max-w-[1550px] w-[90%] mx-auto ">About Us</h1>
@@ -42,7 +46,7 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="max-w-[1550px] w-[90%] mx-auto ">
+            <div className="max-w-[1550px] w-[90%] mx-auto mb-10">
                 <div className="container p-4 mx-auto text-center">
                     <h2 className="text-4xl font-bold">Reviews</h2>
                 </div>
@@ -105,7 +109,6 @@ const About = () => {
                             </SwiperSlide>
                         ))
                     }
-
                 </Swiper>
 
             </div>

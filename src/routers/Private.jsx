@@ -7,8 +7,6 @@ import PropTypes from "prop-types";
 const Private = ({ children }) => {
     const { user } = UseAllProvider();
     const location = useLocation();
-    console.log(location);
-
     if (!user) {
         return <Navigate to="/signIn" state={location.pathname}/>;
     }

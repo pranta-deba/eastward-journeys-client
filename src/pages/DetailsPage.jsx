@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaBookmark } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
@@ -8,6 +9,9 @@ import { SiSession } from "react-icons/si";
 import { useLoaderData } from "react-router-dom";
 
 const DetailsPage = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [])
     const singlePlace = useLoaderData();
     const { touristsSpotName, countryName, description, photoURL, location,travelTime,totalVisitorsPerYear, averageCost, seasonality } = singlePlace || {};
     return (
@@ -39,7 +43,7 @@ const DetailsPage = () => {
                                             <AiOutlineDollar className="text-3xl text-green-800" />
                                         </div>
                                     </div>
-                                    <h4 className="text-lg font-medium leading-6 dark:text-gray-900">{averageCost}/per person</h4>
+                                    <h4 className="text-lg font-medium leading-6 dark:text-gray-900">{averageCost}/per day</h4>
                                 </div>
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">

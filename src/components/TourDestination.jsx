@@ -1,9 +1,10 @@
 import { CirclesWithBar } from "react-loader-spinner";
 import UseAllPlaces from "../hooks/UseAllPlaces";
 import PlaceCard from "./PlaceCard";
+import { Link } from "react-router-dom";
 
 const TourDestination = () => {
-    const { allPlaces ,allPlacesLoading} = UseAllPlaces();
+    const { allPlaces, allPlacesLoading } = UseAllPlaces();
     if (allPlacesLoading) {
         return (
             <div className='h-screen flex justify-center items-center'>
@@ -30,10 +31,13 @@ const TourDestination = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                 {
-                    allPlaces.map(place => {
-                        return <PlaceCard key={place._id} place={place} access={false}/>
+                    allPlaces.slice(0, 8).map(place => {
+                        return <PlaceCard key={place._id} place={place} access={false} />
                     })
                 }
+            </div>
+            <div className="text-center py-12">
+                <Link to='/tourists_spot' className="btn bg-green-800 text-white hover:text-black">See More</Link>
             </div>
         </div>
     );
