@@ -1,9 +1,9 @@
 # Eastward journeys
 
-It is a world tourism travel website.  Here are all the travel places in the Middle East, and by selecting the places you can experience your travel journey in a more beautiful and pleasant way. You can visit the website by [clicking here.](eastwards-3f3d4.web.app) 
+It is a world tourism travel website.  Here are all the travel places in the Middle East, and by selecting the places you can experience your travel journey in a more beautiful and pleasant way. You can visit the website by [clicking here.](https://eastwards-3f3d4.web.app) 
 
 
-- [Live Demo](eastwards-3f3d4.web.app)
+- [Live Demo](https://eastwards-3f3d4.web.app)
 
 > Frontend Resources :
 
