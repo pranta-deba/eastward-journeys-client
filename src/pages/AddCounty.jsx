@@ -1,15 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link, useLoaderData } from "react-router-dom";
 import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/dist/sweetalert2.css'
+
 
 const AddCounty = () => {
     const continents = useLoaderData();
+    const [countries, setCountries] = useState([]);
+    const [againFetch, setAgainFetch] = useState(true);
+    const [editCountry, setEditCountry] = useState('');
+    const formRef = useRef();
+    const countryNameRef = useRef();
+    const countryPhoto = useRef();
+    const countryDescription = useRef();
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
+    useEffect(() => {
+        fetch('http://localhost:5000/countries')
+            .then(res => res.json())
+            .then(data => {
+                setCountries(data);
+            })
+    }, [againFetch])
+
     const handleCreateCountry = (e) => {
         e.preventDefault();
         const doc = {
@@ -34,7 +53,7 @@ const AddCounty = () => {
             });
             return;
         }
-        fetch('https://eastward-journeys-server.vercel.app/add_country', {
+        fetch('http://localhost:5000/add_country', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,6 +63,7 @@ const AddCounty = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.insertedId) {
+                    setAgainFetch(!againFetch);
                     toast.success("Country added successfully", {
                         position: "top-center",
                         autoClose: 5000,
@@ -69,6 +89,106 @@ const AddCounty = () => {
                 }
             })
     }
+
+    const handleCountryEdit = id => {
+        formRef.current.reset();
+        setEditCountry(id);
+        const filter = countries.find(item => item._id === id);
+        countryNameRef.current.defaultValue = filter.countryName;
+        countryPhoto.current.defaultValue = filter.photoURL;
+        countryDescription.current.defaultValue = filter.description
+        document.getElementById('my_modal_6').showModal();
+    }
+    const handleDeleteCountry = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#15803D",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/country/${id}`, {
+                    method: 'DELETE',
+                }).then(res => res.json())
+                    .then(deleted => {
+                        if (deleted.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "This country has been deleted.",
+                                icon: "success"
+                            });
+                            const filteredCountry = countries.filter(place => place._id !== id);
+                            setCountries(filteredCountry);
+                        }
+                    })
+            }
+        });
+    }
+    const handleUpdateCountry = e => {
+        e.preventDefault();
+        const doc = {
+            countryName: e.target.countryName.value,
+            continentId: e.target.continentId.value,
+            photoURL: e.target.photoURL.value,
+            description: e.target.description.value
+        }
+        if (doc.countryName === "" ||
+            doc.continentId === "" ||
+            doc.description === "" ||
+            doc.photoURL === "") {
+            toast.error("Input field required.!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Bounce
+            });
+            return;
+        }
+        fetch(`http://localhost:5000/country/${editCountry}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(doc)
+        })
+            .then((response) => response.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    setAgainFetch(!againFetch);
+                    toast.success("Country update successfully", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Flip
+                    });
+                    document.getElementById('my_modal_6').close();
+                } else {
+                    setAgainFetch(!againFetch);
+                    toast.error("No fields are changes.! ", {
+                        position: "top-left",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce
+                    });
+                }
+            });
+
+    }
     return (
         <div className="max-w-[1550px] w-[90%] mx-auto raleway mb-8 min-h-screen">
             <Helmet>
@@ -81,16 +201,16 @@ const AddCounty = () => {
                 <Link to={"/add_continent"} className={`px-4 rounded border-2 border-green-800 py-1 capitalize focus:bg-green-800 focus:text-white`}>add continent</Link>
             </div>
             <hr />
-            <div className="md:w-[50%] mx-auto mt-8">
+            <div className="md:min-h-[calc(100vh-100px)] md:w-[50%] mx-auto my-8">
                 <form onSubmit={handleCreateCountry} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Country Name</label>
-                        <input className="input border-2 border-green-800" type="text" name="countryName" placeholder="Country Name" required/>
+                        <input className="input border-2 border-green-800" type="text" name="countryName" placeholder="Country Name" required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Continent</label>
                         <select name="continentId" className="input border-2 border-green-800" required>
-                            <option value={-1}>Select</option>
+                            <option value=''>Select</option>
                             {
                                 continents.map(category => {
                                     return <option value={category._id} key={category._id}>{category.continentName}</option>
@@ -100,7 +220,7 @@ const AddCounty = () => {
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
-                        <input className="col-span-2 input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" required/>
+                        <input className="col-span-2 input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" required />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="" className="text-sm font-light mb-2">Description</label>
@@ -112,7 +232,94 @@ const AddCounty = () => {
                     </div>
                 </form>
             </div>
+            <div className="mt-12">
+                <h1 className="text-center text-4xl font-bold my-4">Country List</h1>
+                <div>
+                    <div className="overflow-x-auto">
+                        <table className="table">
+                            <thead className="text-center">
+                                <tr>
+                                    <th className="">Country</th>
+                                    <th className="">Description</th>
+                                    <th className="">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-center">
+                                {
+                                    countries?.map(item => (
+                                        <tr key={item._id}>
+                                            <td className="">
+                                                <div className="flex flex-col md:flex-row items-center gap-3">
+                                                    <div className="avatar">
+                                                        <div className="mask mask-squircle w-12 h-12">
+                                                            <img src={item?.photoURL} alt="Avatar Tailwind CSS Component" />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-bold">{item?.countryName}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="">{item?.description}</td>
+                                            <th className=" md:flex space-y-4 md:space-y-0 md:space-x-3">
+                                                <button onClick={() => {
+                                                    handleCountryEdit(item._id);
+                                                }} className="btn bg-green-700 text-white btn-xs">Edit</button>
+                                                <button onClick={() => handleDeleteCountry(item._id)} className="btn bg-red-500 text-white btn-xs">Delete</button>
+                                            </th>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <ToastContainer />
+            <dialog id="my_modal_6" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <div>
+                        <form ref={formRef} onSubmit={handleUpdateCountry} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div className="flex flex-col">
+                                <label htmlFor="" className="text-sm font-light mb-2">Country Name</label>
+                                <input ref={countryNameRef} className="input border-2 border-green-800" type="text" name="countryName" placeholder="Country Name" required />
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="" className="text-sm font-light mb-2">Continent</label>
+                                <select name="continentId" className="input border-2 border-green-800" required>
+                                    <option value="">Select</option>
+                                    {
+                                        continents.map(category => {
+                                            return <option value={category._id} key={category._id}>{category.continentName}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="" className="text-sm font-light mb-2">Photo URL</label>
+                                <input ref={countryPhoto} className="col-span-2 input border-2 border-green-800" type="text" name="photoURL" placeholder="PhotoURL" required />
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="" className="text-sm font-light mb-2">Description</label>
+                                <textarea ref={countryDescription} className="col-span-2 input border-2 border-green-800" name="description" placeholder="Description" required></textarea>
+                            </div>
+                            <div className="space-x-2">
+                                <input className=" cursor-pointer btn bg-green-800 text-white hover:text-black" type="submit" value="Update" />
+                                <a
+                                    onClick={() => {
+                                        document.getElementById('my_modal_6').close();
+                                    }}
+                                    className=" cursor-pointer btn ">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="modal-action">
+                        <form method="dialog">
+
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };

@@ -42,7 +42,7 @@ const SignIn = () => {
                 const lastSignInTime = data?.user?.metadata?.lastSignInTime;
                 const doc = { email: data.user.email, lastSignInTime };
 
-                fetch('https://eastward-journeys-server.vercel.app/users', {
+                fetch('http://localhost:5000/users', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ const SignIn = () => {
                     })
             })
             .catch(error => {
-                toast.error(error.message.split('(')[1].split(')')[0].split("/")[1] + " please correct email and password.!", {
+                toast.error(error.message.split('(')[1].split(')')[0].split("/")[1], {
                     position: "top-left",
                     autoClose: 3000,
                     hideProgressBar: false,

@@ -9,10 +9,14 @@ import avatar from "../assets/avater.jpg"
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
-    const [themeController, setThemeController] = useState(false);
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || "light");
     const { user, logOut, setThemeMail, themeMail } = UseAllProvider();
-    document.querySelector('html').setAttribute('data-theme', theme);
+
+    useEffect(() => {
+        document.querySelector('html').setAttribute('data-theme', theme);
+        setThemeMail(theme);
+    }, [theme, setThemeMail]);
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -28,13 +32,14 @@ const Navbar = () => {
         }
     };
     const handleThemeController = () => {
-        setThemeController(!themeController);
-        if (!themeController) {
+        if (theme === "light") {
             setTheme('synthwave')
             setThemeMail('synthwave');
-        } else {
+            localStorage.setItem("theme", "synthwave");
+        } else if(theme === "synthwave") {
             setTheme('light')
             setThemeMail('light');
+            localStorage.setItem("theme", "light");
         }
     }
     const HandleLogout = () => {
@@ -110,7 +115,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-end gap-2">
                 <a onClick={handleThemeController} className="text-3xl cursor-pointer">
-                    {!themeController ? <MdLightMode /> : <MdOutlineLightMode />}
+                    {theme==="light" ? <MdLightMode /> : <MdOutlineLightMode />}
                 </a>
 
                 {user && <div className="dropdown dropdown-end">
@@ -144,7 +149,7 @@ const Navbar = () => {
                             : isPending
                                 ? "pending"
                                 : "btn px-9 bg-green-800 text-white hover:text-white hover:bg-green-400 rounded border-b-2 border-transparent focus:bg-green-800"
-                    } >Try Free</NavLink>
+                    } >Sign up</NavLink>
                 </>}
             </div>
             <Tooltip id="my-tooltip" className="relative z-20" />

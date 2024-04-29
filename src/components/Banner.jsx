@@ -12,8 +12,8 @@ const Banner = () => {
                 <img src="/banner.jpg" className="opacity-70" />
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="space-y-4">
-                        <p  data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold ${themeMail === "synthwave" ? "text-green-800" : ""}`}>Best Destinations around the world</p>
-                        <h1  data-aos="fade-up" className={`text-2xl md:text-7xl font-bold ${themeMail === "synthwave" ? "text-[#1A103D]" : ""}`}> <span className="text-green-700"><Typewriter words={['Travel', 'Enjoy']} loop={false} delaySpeed={3000} /></span> and live a new and full life</h1>
+                        <p data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold `}>Best Destinations around the world</p>
+                        <h1 data-aos="fade-up" className={`text-4xl md:text-7xl font-bold `}> <span className="text-green-700"><Typewriter words={['Travel', 'Enjoy']} loop={false} delaySpeed={3000} /></span> and live a new and full life</h1>
 
                     </div>
                 </div>
@@ -22,8 +22,8 @@ const Banner = () => {
                 <img src="/banner2.jpg" className="opacity-70" />
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="space-y-4">
-                        <p  data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold ${themeMail === "synthwave" ? "text-green-800" : ""}`}>Best Destinations around the world</p>
-                        <h1  data-aos="fade-up" className={`text-2xl md:text-7xl font-bold ${themeMail === "synthwave" ? "text-[#1A103D]" : ""}`}><span className="text-green-700"><Typewriter words={['Discover', 'Find']} loop={false} delaySpeed={3000} /></span> Your Favorite Place with Us</h1>
+                        <p data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold `}>Best Destinations around the world</p>
+                        <h1 data-aos="fade-up" className={`text-4xl md:text-7xl font-bold `}><span className="text-green-700"><Typewriter words={['Discover', 'Find']} loop={false} delaySpeed={3000} /></span> Your Favorite Place with Us</h1>
                     </div>
                 </div>
             </div>
@@ -31,8 +31,8 @@ const Banner = () => {
                 <img src="/banner.jpg" className="opacity-70" />
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="space-y-4">
-                        <p  data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold ${themeMail === "synthwave" ? "text-green-800" : ""}`}>Best Destinations around the world</p>
-                        <h1  data-aos="fade-up" className={`text-2xl md:text-7xl font-bold ${themeMail === "synthwave" ? "text-[#1A103D]" : ""}`}> <span className="text-green-700"><Typewriter words={['Travel', 'Enjoy']} loop={false} delaySpeed={3000} /></span> and live a new and full life</h1>
+                        <p data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold `}>Best Destinations around the world</p>
+                        <h1 data-aos="fade-up" className={`text-4xl md:text-7xl font-bold `}> <span className="text-green-700"><Typewriter words={['Travel', 'Enjoy']} loop={false} delaySpeed={3000} /></span> and live a new and full life</h1>
 
                     </div>
                 </div>
@@ -41,8 +41,8 @@ const Banner = () => {
                 <img src="/banner2.jpg" className="opacity-70" />
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="space-y-4">
-                        <p  data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold ${themeMail === "synthwave" ? "text-green-800" : ""}`}>Best Destinations around the world</p>
-                        <h1  data-aos="fade-up" className={`text-2xl md:text-7xl font-bold ${themeMail === "synthwave" ? "text-[#1A103D]" : ""}`}><span className="text-green-700"><Typewriter words={['Discover', 'Find']} loop={false} delaySpeed={3000} /></span> Your Favorite Place with Us</h1>
+                        <p data-aos="fade-up" className={`josefin hidden md:flex justify-center font-bold `}>Best Destinations around the world</p>
+                        <h1 data-aos="fade-up" className={`text-4xl md:text-7xl font-bold`}><span className="text-green-700"><Typewriter words={['Discover', 'Find']} loop={false} delaySpeed={3000} /></span> Your Favorite Place with Us</h1>
                     </div>
                 </div>
             </div>

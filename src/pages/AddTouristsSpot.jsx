@@ -15,7 +15,7 @@ const AddTouristsSpot = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch(`https://eastward-journeys-server.vercel.app/continents/${continentId}`)
+        fetch(`http://localhost:5000/continents/${continentId}`)
             .then((res) => res.json())
             .then(data => {
                 setCountry(data);
@@ -59,7 +59,7 @@ const AddTouristsSpot = () => {
             });
             return;
         }
-        fetch('https://eastward-journeys-server.vercel.app/add_places', {
+        fetch('http://localhost:5000/add_places', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ const AddTouristsSpot = () => {
                         <select onChange={handleCountiesId} name="continentId" className="input border-2 border-green-800" required>
                             <option value="">Select</option>
                             {
-                                continents.map(category => {
+                                continents?.map(category => {
                                     return <option value={category._id} key={category._id}>{category.continentName}</option>
                                 })
                             }
@@ -133,7 +133,7 @@ const AddTouristsSpot = () => {
                         <select name="countryName" className="input border-2 border-green-800" required>
                             <option value="">Select</option>
                             {
-                                country.map(con => <option value={con.countryName} key={con._id}>{con.countryName}</option>)
+                                country?.map(con => <option value={con.countryName} key={con._id}>{con.countryName}</option>)
                             }
                         </select>
                     </div>

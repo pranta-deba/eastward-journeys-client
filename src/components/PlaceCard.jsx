@@ -1,4 +1,4 @@
-import { TbEyeShare, TbLocationUp } from "react-icons/tb";
+import { TbEyeShare, TbLocation } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaEdit } from "react-icons/fa";
@@ -6,8 +6,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import UseAllProvider from "../hooks/UseAllProvider";
 
 const PlaceCard = ({ place, access, handleDeletePlace }) => {
-    const { user } = UseAllProvider();
-    const { _id: id, touristsSpotName, photoURL, location, averageCost, travelTime } = place || {};
+    const { user, themeMail } = UseAllProvider();
+    const { _id: id, touristsSpotName, countryName, photoURL, location, averageCost, travelTime } = place || {};
     return (
         <div data-aos="fade-up" className="relative flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
             <div>
@@ -15,9 +15,12 @@ const PlaceCard = ({ place, access, handleDeletePlace }) => {
                     <img src={photoURL} alt="" className="w-full mb-4  dark:bg-gray-500 hover:scale-105 transition-all h-[250px] object-cover" />
                 </Link>
                 <div className="p-2 absolute w-[85%]">
-                    <div className="bg-white border transform -translate-y-16 p-5">
-                        <p className="uppercase font-semibold text-green-900">{travelTime} days</p>
-                        <p className="flex items-center gap-1 text-slate-500"><TbLocationUp />{location}</p>
+                    <div className={`transform -translate-y-16 p-5 ${themeMail === "synthwave" ? "bg-blur" : "bg-white border "}`}>
+                        <div className="flex justify-between">
+                            <p className="uppercase font-semibold text-green-900">{travelTime} days</p>
+                            <p className="capitalize font-semibold text-green-900">{countryName.split(" ")[0]}</p>
+                        </div>
+                        <p className={`flex items-center gap-1 ${themeMail === "synthwave" ? "text-black" : "text-slate-500"}`}><TbLocation />{location}</p>
                     </div>
                 </div>
                 <h1 className="text-xl font-bold mt-16 text-center raleway">{touristsSpotName}</h1>

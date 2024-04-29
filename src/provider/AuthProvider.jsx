@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [userLoader, setUserLoader] = useState(true);
     const [again, setAgain] = useState(false);
-    const [themeMail, setThemeMail] = useState('');
+    const [themeMail, setThemeMail] = useState(localStorage.getItem('theme')||'');
 
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();

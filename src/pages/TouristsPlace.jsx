@@ -61,7 +61,7 @@ const TouristsPlace = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
+                fetch(`http://localhost:5000/places/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json())
                     .then(deleted => {

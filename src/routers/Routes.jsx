@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/add_tourists_spot",
-                loader: () => fetch('https://eastward-journeys-server.vercel.app/continents'),
+                loader: () => fetch('http://localhost:5000/continents'),
                 element: <Private><AddTouristsSpot /></Private>
             },
             {
@@ -43,22 +43,22 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/add_country",
-                loader: () => fetch('https://eastward-journeys-server.vercel.app/continents'),
+                loader: () => fetch('http://localhost:5000/continents'),
                 element: <Private><AddCounty /></Private>
             },
             {
                 path: "/details/:id",
-                loader: ({ params }) => fetch(`https://eastward-journeys-server.vercel.app/places/${params.id}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
                 element: <DetailsPage />
             },
             {
                 path: "/places/:country",
-                loader: ({ params }) => fetch(`https://eastward-journeys-server.vercel.app/filter_places/${params.country}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/filter_places/${params.country}`),
                 element: <CountryPlace />
             },
             {
                 path: "/edit/:id",
-                loader: ({ params }) => fetch(`https://eastward-journeys-server.vercel.app/places/${params.id}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/places/${params.id}`),
                 element: <Private><EditPlace /></Private>
             },
             {

@@ -6,7 +6,7 @@ const UseAllCountry = () => {
 
     useEffect(() => {
         const handleData = async () => {
-            const res = await fetch("https://eastward-journeys-server.vercel.app/countries");
+            const res = await fetch("http://localhost:5000/countries");
             const data = await res.json();
             setAllCountry(data);
             setAllCountryLoading(false);
