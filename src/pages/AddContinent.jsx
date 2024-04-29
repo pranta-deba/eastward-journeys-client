@@ -20,7 +20,7 @@ const AddContinent = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch('http://localhost:5000/continents')
+        fetch('https://eastward-journeys-server.vercel.app/continents')
             .then(res => res.json())
             .then(data => {
                 setContinents(data);
@@ -49,7 +49,7 @@ const AddContinent = () => {
             });
             return;
         }
-        fetch('http://localhost:5000/add_continent', {
+        fetch('https://eastward-journeys-server.vercel.app/add_continent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ const AddContinent = () => {
             });
             return;
         }
-        fetch(`http://localhost:5000/continent/${editContinent}`, {
+        fetch(`https://eastward-journeys-server.vercel.app/continent/${editContinent}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -167,7 +167,7 @@ const AddContinent = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/continent/${id}`, {
+                fetch(`https://eastward-journeys-server.vercel.app/continent/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json())
                     .then(deleted => {

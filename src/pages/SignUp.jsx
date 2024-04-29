@@ -124,7 +124,7 @@ const SignUp = () => {
                     displayName: username, photoURL: photoURL
                 }).then(() => {
                     setAgain(!again);
-                    fetch('http://localhost:5000/add_user', {
+                    fetch('https://eastward-journeys-server.vercel.app/add_user', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

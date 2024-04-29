@@ -17,7 +17,7 @@ const EditPlace = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch(`http://localhost:5000/continents/${continentId}`)
+        fetch(`https://eastward-journeys-server.vercel.app/continents/${continentId}`)
             .then((res) => res.json())
             .then(data => {
                 setCountry(data);
@@ -61,7 +61,7 @@ const EditPlace = () => {
             });
             return;
         }
-        fetch(`http://localhost:5000/places/${id}`, {
+        fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

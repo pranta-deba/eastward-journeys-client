@@ -22,7 +22,7 @@ const AddCounty = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [])
     useEffect(() => {
-        fetch('http://localhost:5000/countries')
+        fetch('https://eastward-journeys-server.vercel.app/countries')
             .then(res => res.json())
             .then(data => {
                 setCountries(data);
@@ -53,7 +53,7 @@ const AddCounty = () => {
             });
             return;
         }
-        fetch('http://localhost:5000/add_country', {
+        fetch('https://eastward-journeys-server.vercel.app/add_country', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ const AddCounty = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/country/${id}`, {
+                fetch(`https://eastward-journeys-server.vercel.app/country/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json())
                     .then(deleted => {
@@ -151,7 +151,7 @@ const AddCounty = () => {
             });
             return;
         }
-        fetch(`http://localhost:5000/country/${editCountry}`, {
+        fetch(`https://eastward-journeys-server.vercel.app/country/${editCountry}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
