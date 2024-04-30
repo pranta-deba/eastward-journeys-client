@@ -6,9 +6,11 @@ import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import UseAllProvider from "../hooks/UseAllProvider";
 
 
 const AddCounty = () => {
+    const { user } = UseAllProvider();
     const continents = useLoaderData();
     const [countries, setCountries] = useState([]);
     const [againFetch, setAgainFetch] = useState(true);
@@ -35,7 +37,9 @@ const AddCounty = () => {
             countryName: e.target.countryName.value,
             continentId: e.target.continentId.value,
             photoURL: e.target.photoURL.value,
-            description: e.target.description.value
+            description: e.target.description.value,
+            userEmail: user.email || null,
+            userName: user.displayName || null,
         }
         if (doc.countryName === "" ||
             doc.continentId === "" ||
@@ -261,12 +265,15 @@ const AddCounty = () => {
                                                 </div>
                                             </td>
                                             <td className="">{item?.description}</td>
-                                            <th className=" md:flex space-y-4 md:space-y-0 md:space-x-3">
-                                                <button onClick={() => {
-                                                    handleCountryEdit(item._id);
-                                                }} className="btn bg-green-700 text-white btn-xs">Edit</button>
-                                                <button onClick={() => handleDeleteCountry(item._id)} className="btn bg-red-500 text-white btn-xs">Delete</button>
-                                            </th>
+
+                                            {item?.userEmail === user?.email || item?.userName === user?.displayName ?
+                                                <td className="md:flex space-y-4 md:space-y-0 md:space-x-3 text-center">
+                                                    <button onClick={() => {
+                                                        handleCountryEdit(item._id);
+                                                    }} className="btn bg-green-700 text-white btn-xs">Edit</button>
+                                                    <button onClick={() => handleDeleteCountry(item._id)} className="btn bg-red-500 text-white btn-xs">Delete</button>
+                                                </td> : <td className="md:flex text-center justify-center text-red-300">Not Access</td>}
+
                                         </tr>
                                     ))
                                 }

@@ -6,8 +6,10 @@ import { Bounce, Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import UseAllProvider from "../hooks/UseAllProvider";
 
 const AddContinent = () => {
+    const { user } = UseAllProvider();
     const [continents, setContinents] = useState([]);
     const [editContinent, setEditContinent] = useState('');
     const [againFetch, setAgainFetch] = useState(true);
@@ -32,7 +34,9 @@ const AddContinent = () => {
         const doc = {
             continentName: e.target.continentName.value,
             photoURL: e.target.photoURL.value,
-            description: e.target.description.value
+            description: e.target.description.value,
+            userEmail: user.email || null,
+            userName: user.displayName || null,
         }
         if (doc.continentName === "" ||
             doc.photoURL === "" ||
@@ -247,12 +251,15 @@ const AddContinent = () => {
                                                 </div>
                                             </td>
                                             <td className="">{continent?.description}</td>
-                                            <td className=" md:flex space-y-4 md:space-y-0 md:space-x-3">
-                                                <button onClick={() => {
-                                                    handleContinentEdit(continent._id);
-                                                }} className="btn bg-green-700 text-white btn-xs">Edit</button>
-                                                <button onClick={() => handleDeleteContinent(continent._id)} className="btn bg-red-500 text-white btn-xs">Delete</button>
-                                            </td>
+
+                                            {continent?.userEmail === user?.email || continent?.userName === user?.displayName ?
+                                                <td className="md:flex justify-center space-y-4 md:space-y-0 md:space-x-3">
+                                                    <button onClick={() => {
+                                                        handleContinentEdit(continent._id);
+                                                    }} className="btn bg-green-700 text-white btn-xs">Edit</button>
+                                                    <button onClick={() => handleDeleteContinent(continent._id)} className="btn bg-red-500 text-white btn-xs">Delete</button>
+                                                </td> : <td className="md:flex text-center justify-center text-red-300">Not Access</td>}
+
                                         </tr>
                                     ))
                                 }

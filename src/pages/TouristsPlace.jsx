@@ -3,8 +3,8 @@ import PlaceCard from "../components/PlaceCard";
 import UseAllCountry from "../hooks/UseAllCountry";
 import UseAllPlaces from "../hooks/UseAllPlaces";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/dist/sweetalert2.css'
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
+// import 'sweetalert2/dist/sweetalert2.css'
 import { CirclesWithBar } from "react-loader-spinner";
 import { Helmet } from "react-helmet-async";
 
@@ -50,35 +50,35 @@ const TouristsPlace = () => {
         setActive(country);
     }
 
-    const handleDeletePlace = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#15803D",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
-                    method: 'DELETE',
-                }).then(res => res.json())
-                    .then(deleted => {
-                        if (deleted.deletedCount > 0) {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "This spot has been deleted.",
-                                icon: "success"
-                            });
-                            const filteredPlaces = allPlaces.filter(place => place._id !== id);
-                            setPlaces(filteredPlaces);
-                            setActive('all');
-                        }
-                    })
-            }
-        });
-    }
+    // const handleDeletePlace = (id) => {
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "You won't be able to revert this!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#15803D",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, delete it!"
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             fetch(`https://eastward-journeys-server.vercel.app/places/${id}`, {
+    //                 method: 'DELETE',
+    //             }).then(res => res.json())
+    //                 .then(deleted => {
+    //                     if (deleted.deletedCount > 0) {
+    //                         Swal.fire({
+    //                             title: "Deleted!",
+    //                             text: "This spot has been deleted.",
+    //                             icon: "success"
+    //                         });
+    //                         const filteredPlaces = allPlaces.filter(place => place._id !== id);
+    //                         setPlaces(filteredPlaces);
+    //                         setActive('all');
+    //                     }
+    //                 })
+    //         }
+    //     });
+    // }
 
     return (
         <div>
@@ -96,7 +96,7 @@ const TouristsPlace = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
                     {
                         places.map((place) => {
-                            return <PlaceCard key={place._id} place={place} access={true} handleDeletePlace={handleDeletePlace} />
+                            return <PlaceCard key={place._id} place={place} access={false}/>
                         })
                     }
                 </div>
